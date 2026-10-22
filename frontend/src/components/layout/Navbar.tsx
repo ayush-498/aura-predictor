@@ -180,7 +180,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isBackendOnline, onRefreshHealth
             <div className="space-y-3 text-xs">
               <div className="p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 flex justify-between items-center">
                 <span className="text-zinc-500">Service Endpoint:</span>
-                <span className="font-mono font-bold text-zinc-800 dark:text-zinc-200">http://localhost:5050</span>
+                <span className="font-mono font-bold text-zinc-800 dark:text-zinc-200 truncate max-w-[220px]" title={import.meta.env.VITE_API_BASE_URL || "Local Proxy (/api)"}>{import.meta.env.VITE_API_BASE_URL || "http://localhost:5050"}</span>
               </div>
               <div className="p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 flex justify-between items-center">
                 <span className="text-zinc-500">Status:</span>
