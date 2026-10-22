@@ -1,0 +1,81 @@
+{
+  "evaluated_samples": 22770,
+  "test_samples": 4554,
+  "provenance": "Kaggle HR Analytics Salary Hike Dataset",
+  "target_variable": "Percentage Salary Hike",
+  "target_unit": "Percentage (%)",
+  "metrics": [
+    {
+      "Model Key": "gb_core",
+      "Filename": "gradient_boosting_core.joblib",
+      "Features Count": 3,
+      "Test RMSE": 6.9216,
+      "Test R2": 0.0866,
+      "Test MAE (%)": 5.9134
+    },
+    {
+      "Model Key": "lr_core",
+      "Filename": "linear_regression_core.joblib",
+      "Features Count": 3,
+      "Test RMSE": 7.0944,
+      "Test R2": 0.0405,
+      "Test MAE (%)": 6.1126
+    },
+    {
+      "Model Key": "gb_full",
+      "Filename": "gradient_boosting_full.joblib",
+      "Features Count": 7,
+      "Test RMSE": 6.144,
+      "Test R2": 0.2803,
+      "Test MAE (%)": 5.1281
+    },
+    {
+      "Model Key": "lr_full",
+      "Filename": "linear_regression_full.joblib",
+      "Features Count": 7,
+      "Test RMSE": 7.0521,
+      "Test R2": 0.0519,
+      "Test MAE (%)": 6.0771
+    }
+  ],
+  "core_feature_importances": [
+    {
+      "name": "Experience",
+      "pct": 78.6
+    },
+    {
+      "name": "Performance Rating",
+      "pct": 12.4
+    },
+    {
+      "name": "Job Roles Domain",
+      "pct": 9.0
+    }
+  ],
+  "full_feature_importances": [
+    {
+      "name": "Total Experience",
+      "pct": 49.0
+    },
+    {
+      "name": "Current Base Salary",
+      "pct": 31.8
+    },
+    {
+      "name": "Job Roles Domain",
+      "pct": 9.8
+    },
+    {
+      "name": "Employment Status",
+      "pct": 5.6
+    },
+    {
+      "name": "Performance Rating",
+      "pct": 1.4
+    },
+    {
+      "name": "Work Location",
+      "pct": 1.1
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+Experiment,Model,Train RMSE,Test RMSE,Train R2,Test R2,Test MAE (%)
+"Core_Features (Rating, Experience, Role)",Linear Regression,7.0778,7.0944,0.0389,0.0405,6.1126
+"Core_Features (Rating, Experience, Role)",Gradient Boosting,6.8186,6.9216,0.108,0.0866,5.9134
+"Full_Features (Core + Salary, Status, Location)",Linear Regression,7.0381,7.0521,0.0497,0.0519,6.0771
+"Full_Features (Core + Salary, Status, Location)",Gradient Boosting,5.9593,6.144,0.3187,0.2803,5.1281

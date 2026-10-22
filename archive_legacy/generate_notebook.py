@@ -1,0 +1,209 @@
+"""
+Script to generate the complete Jupyter Notebook:
+Employee_Salary_Hike_Prediction.ipynb
+"""
+
+import json
+
+nb = {
+    "cells": [
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "# Employee Salary Hike Prediction\n",
+                "- **Problem Type**: Regression\n",
+                "- **Dataset**: Kaggle – HR Analytics / Indian Tech Salaries Dataset (22,770 records)\n",
+                "- **Objective**: Predict salary increment percentage (`Percentage Salary Hike`)\n",
+                "- **Input Features**: Experience, Performance Rating, Role (plus Salary, Location, Status)\n",
+                "- **ML Techniques**: Linear Regression (Baseline), Gradient Boosting Regressor (Ensemble)\n",
+                "- **Metrics**: Root Mean Squared Error (RMSE), R² Score, Mean Absolute Error (MAE)\n",
+                "- **Outcome**: HR Decision Support Tool"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "import pandas as pd\n",
+                "import numpy as np\n",
+                "import matplotlib.pyplot as plt\n",
+                "import seaborn as sns\n",
+                "import joblib\n",
+                "\n",
+                "from sklearn.model_selection import train_test_split\n",
+                "from sklearn.preprocessing import StandardScaler, OneHotEncoder\n",
+                "from sklearn.compose import ColumnTransformer\n",
+                "from sklearn.pipeline import Pipeline\n",
+                "from sklearn.linear_model import LinearRegression\n",
+                "from sklearn.ensemble import GradientBoostingRegressor\n",
+                "from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error\n",
+                "\n",
+                "# Load Dataset\n",
+                "df = pd.read_csv('salary_data.csv')\n",
+                "print(f'Total records: {df.shape[0]}, Total columns: {df.shape[1]}')\n",
+                "df.head()"
+            ]
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 1. Exploratory Data Analysis & Target Distribution"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "print(df.info())\n",
+                "print('\\nMissing values:\\n', df.isnull().sum())\n",
+                "\n",
+                "plt.figure(figsize=(10, 4))\n",
+                "plt.subplot(1, 2, 1)\n",
+                "plt.hist(df['Percentage Salary Hike'], bins=25, color='royalblue', edgecolor='black')\n",
+                "plt.title('Distribution of Salary Hike (%)')\n",
+                "plt.xlabel('Percentage Salary Hike (%)')\n",
+                "plt.ylabel('Frequency')\n",
+                "\n",
+                "plt.subplot(1, 2, 2)\n",
+                "df.groupby('Job Roles')['Percentage Salary Hike'].mean().plot(kind='bar', color='teal', edgecolor='black')\n",
+                "plt.title('Mean Salary Hike by Job Role')\n",
+                "plt.xlabel('Job Role')\n",
+                "plt.ylabel('Mean Hike (%)')\n",
+                "plt.tight_layout()\n",
+                "plt.show()"
+            ]
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 2. Feature Preprocessing & Model Training Pipelines"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "target = 'Percentage Salary Hike'\n",
+                "y = df[target]\n",
+                "\n",
+                "# Experiment 1: Core Required Features (Experience, Rating, Role)\n",
+                "num_core = ['Experience', 'Rating']\n",
+                "cat_core = ['Job Roles']\n",
+                "X_core = df[num_core + cat_core]\n",
+                "\n",
+                "X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(X_core, y, test_size=0.2, random_state=42)\n",
+                "\n",
+                "preprocessor_core = ColumnTransformer([\n",
+                "    ('num', StandardScaler(), num_core),\n",
+                "    ('cat', OneHotEncoder(handle_unknown='ignore', sparse_output=False), cat_core)\n",
+                "])\n",
+                "\n",
+                "# Pipeline A: Linear Regression\n",
+                "pipe_lr = Pipeline([\n",
+                "    ('prep', preprocessor_core),\n",
+                "    ('model', LinearRegression())\n",
+                "])\n",
+                "pipe_lr.fit(X_train_c, y_train_c)\n",
+                "y_pred_lr = pipe_lr.predict(X_test_c)\n",
+                "\n",
+                "# Pipeline B: Gradient Boosting Regressor\n",
+                "pipe_gb = Pipeline([\n",
+                "    ('prep', preprocessor_core),\n",
+                "    ('model', GradientBoostingRegressor(n_estimators=150, learning_rate=0.08, max_depth=4, random_state=42))\n",
+                "])\n",
+                "pipe_gb.fit(X_train_c, y_train_c)\n",
+                "y_pred_gb = pipe_gb.predict(X_test_c)\n",
+                "\n",
+                "print('Core Models Trained Successfully!')"
+            ]
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 3. Evaluation Metrics Comparison (RMSE, R², MAE)"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "def evaluate(name, y_true, y_pred):\n",
+                "    rmse = np.sqrt(mean_squared_error(y_true, y_pred))\n",
+                "    r2 = r2_score(y_true, y_pred)\n",
+                "    mae = mean_absolute_error(y_true, y_pred)\n",
+                "    return {'Model': name, 'RMSE': round(rmse, 4), 'R2 Score': round(r2, 4), 'MAE (%)': round(mae, 4)}\n",
+                "\n",
+                "metrics = pd.DataFrame([\n",
+                "    evaluate('Linear Regression (Core)', y_test_c, y_pred_lr),\n",
+                "    evaluate('Gradient Boosting (Core)', y_test_c, y_pred_gb)\n",
+                "])\n",
+                "metrics"
+            ]
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## 4. HR Decision Support Inference Function"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "def recommend_salary_hike(experience_years, performance_rating, job_role, current_salary):\n",
+                "    inp = pd.DataFrame([{\n",
+                "        'Experience': experience_years,\n",
+                "        'Rating': performance_rating,\n",
+                "        'Job Roles': job_role\n",
+                "    }])\n",
+                "    hike_pred = pipe_gb.predict(inp)[0]\n",
+                "    hike_pred = max(5.0, min(35.0, hike_pred))\n",
+                "    new_sal = current_salary * (1 + hike_pred / 100.0)\n",
+                "    \n",
+                "    print(f'=== HR Decision Recommendation ===')\n",
+                "    print(f'Role               : {job_role}')\n",
+                "    print(f'Experience         : {experience_years} years')\n",
+                "    print(f'Performance Rating : {performance_rating} / 5.0')\n",
+                "    print(f'Current Base Salary: INR {current_salary:,.2f}')\n",
+                "    print(f'Recommended Hike   : {hike_pred:.2f}%')\n",
+                "    print(f'Adjusted New Salary: INR {new_sal:,.2f}')\n",
+                "    return hike_pred, new_sal\n",
+                "\n",
+                "# Example Execution\n",
+                "recommend_salary_hike(experience_years=5, performance_rating=4.2, job_role='SDE', current_salary=600000);"
+            ]
+        }
+    ],
+    "metadata": {
+        "kernelspec": {
+            "display_name": "Python 3",
+            "language": "python",
+            "name": "python3"
+        },
+        "language_info": {
+            "name": "python",
+            "version": "3.12.0"
+        }
+    },
+    "nbformat": 4,
+    "nbformat_minor": 4
+}
+
+with open('Employee_Salary_Hike_Prediction.ipynb', 'w', encoding='utf-8') as f:
+    json.dump(nb, f, indent=2)
+print("Generated Employee_Salary_Hike_Prediction.ipynb")

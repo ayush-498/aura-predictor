@@ -1,0 +1,11 @@
+{
+  "name": "ai-application-project",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm.cmd run dev",
+    "build:frontend": "cd frontend && npm.cmd run build",
+    "dev:backend": ".\\.venv\\Scripts\\python.exe backend/app.py",
+    "dev": "run_dev.bat"
+  }
+}
