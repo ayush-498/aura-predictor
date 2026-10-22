@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { EmployeeProfile, PredictionRequest, PredictionResponse, ResumeParsedProfile } from '../types';
+import { supabaseService } from '../services/supabase';
 
 // Real historical enterprise records extracted directly from backend/data/salary_data.csv (22,770 rows)
 export const DATASET_BASELINE_RECORDS: EmployeeProfile[] = [
@@ -138,6 +139,46 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
     }
   }, [ledger]);
 
+  // Global cross-user sync via Supabase
+  useEffect(() => {
+    let active = true;
+    const syncFromSupabase = async () => {
+      try {
+        const records = await supabaseService.getGlobalLedger();
+        if (active && records && records.length > 0) {
+          const mapped: EmployeeProfile[] = records.map((r, i) => ({
+            id: r.id || `SUPA-${i}`,
+            name: r.candidate_name,
+            role: r.role,
+            experience: Number(r.experience),
+            rating: Number(r.rating),
+            currentSalary: Number(r.current_salary),
+            location: 'Bangalore',
+            hikePct: Number(r.approved_hike),
+            newSalary: Number(r.final_salary),
+            status: (r.status as 'Approved' | 'Review' | 'Flagged') || 'Approved',
+            avatar: `https://images.unsplash.com/photo-${1534528741775 + (i % 30)}?w=100&h=100&fit=crop&crop=faces`,
+            department: `${r.role} Engineering`,
+            source: (r.source as any) || 'Simulator'
+          }));
+          setLedger(prev => {
+            const remoteIds = new Set(mapped.map(m => m.id));
+            const localOnly = prev.filter(p => !remoteIds.has(p.id));
+            return [...mapped, ...localOnly];
+          });
+        }
+      } catch (err) {
+        console.warn('Supabase sync warning:', err);
+      }
+    };
+    syncFromSupabase();
+    const interval = setInterval(syncFromSupabase, 12000);
+    return () => {
+      active = false;
+      clearInterval(interval);
+    };
+  }, []);
+
   const addCandidate = (profile: EmployeeProfile) => {
     setLedger(prev => [profile, ...prev.filter(p => p.id !== profile.id)]);
   };
@@ -169,6 +210,17 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
     };
 
     setLedger(prev => [newRecord, ...prev]);
+    supabaseService.addLedgerCandidate({
+      candidate_name: newRecord.name,
+      role: newRecord.role,
+      experience: newRecord.experience,
+      rating: newRecord.rating,
+      current_salary: newRecord.currentSalary,
+      approved_hike: newRecord.hikePct,
+      final_salary: newRecord.newSalary,
+      status: newRecord.status,
+      source: 'Simulator'
+    }).catch(e => console.warn('Supabase candidate save skip:', e));
     return newRecord;
   };
 
@@ -198,6 +250,17 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
     };
 
     setLedger(prev => [newRecord, ...prev]);
+    supabaseService.addLedgerCandidate({
+      candidate_name: newRecord.name,
+      role: newRecord.role,
+      experience: newRecord.experience,
+      rating: newRecord.rating,
+      current_salary: newRecord.currentSalary,
+      approved_hike: newRecord.hikePct,
+      final_salary: newRecord.newSalary,
+      status: newRecord.status,
+      source: 'Resume Scanner'
+    }).catch(e => console.warn('Supabase candidate save skip:', e));
     return newRecord;
   };
 
@@ -211,6 +274,7 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
 
   const removeCandidate = (id: string) => {
     setLedger(prev => prev.filter(emp => emp.id !== id));
+    supabaseService.deleteLedgerCandidate(id).catch(e => console.warn('Supabase candidate delete skip:', e));
   };
 
   const clearLedger = () => {

@@ -44,3 +44,8 @@ frontend/dist-ssr/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Cache & legacy
+.vite/
+frontend/.vite/
+archive_legacy/

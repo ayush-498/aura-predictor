@@ -16,6 +16,7 @@ import { Card, CardHeaderTitle } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { Badge } from '../../../components/ui/Badge';
 import { salaryService } from '../../../services/salaryService';
+import { supabaseService } from '../../../services/supabase';
 import { ResumeUploadResponse, ResumeParsedProfile } from '../../../types';
 import { ResumeAnalysisOverlay } from './ResumeAnalysisOverlay';
 
@@ -141,6 +142,16 @@ export const ResumeUploadSection: React.FC<ResumeUploadSectionProps> = ({
       if (response && response.status === 'success') {
         setAnalysisResult(response);
         setIsOverlayOpen(true);
+        supabaseService.recordCVUpload({
+          filename: file.name,
+          candidate_name: response.extracted_profile?.candidate_name,
+          role: response.extracted_profile?.role,
+          experience: response.extracted_profile?.experience,
+          rating: response.extracted_profile?.rating,
+          current_salary: response.extracted_profile?.salary,
+          predicted_hike: response.prediction?.recommended_hike_pct,
+          skills: response.extracted_profile?.skills || []
+        }).catch(e => console.warn('Supabase CV log skip:', e));
       } else {
         throw new Error(response.error || 'Failed to extract features from resume.');
       }

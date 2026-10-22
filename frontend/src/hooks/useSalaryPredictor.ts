@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { PredictionRequest, PredictionResponse } from '../types';
 import { salaryService } from '../services/salaryService';
+import { supabaseService } from '../services/supabase';
 
 const DEFAULT_STATE: PredictionRequest = {
   experience: 4.5,
@@ -67,6 +68,30 @@ export function useSalaryPredictor() {
       if (debounceTimer.current) clearTimeout(debounceTimer.current);
     };
   }, [params, executePrediction]);
+
+  // Settle & save simulation to global Supabase database (after 2.5s idle)
+  const syncDbTimer = useRef<NodeJS.Timeout | null>(null);
+  useEffect(() => {
+    if (syncDbTimer.current) clearTimeout(syncDbTimer.current);
+    syncDbTimer.current = setTimeout(() => {
+      if (prediction && params) {
+        supabaseService.recordPrediction({
+          role: params.role,
+          experience: params.experience,
+          rating: params.rating,
+          current_salary: params.salary || 1200000,
+          location: params.location || 'Bangalore',
+          status: params.status || 'Full Time',
+          predicted_hike: prediction.recommended_hike_pct,
+          predicted_salary: prediction.projected_new_salary || Math.round((params.salary || 1200000) * (1 + prediction.recommended_hike_pct / 100)),
+          model_used: prediction.model_used || 'Gradient Boosting Ensemble'
+        });
+      }
+    }, 2500);
+    return () => {
+      if (syncDbTimer.current) clearTimeout(syncDbTimer.current);
+    };
+  }, [prediction, params]);
 
   const updateParam = useCallback(<K extends keyof PredictionRequest>(key: K, value: PredictionRequest[K]) => {
     setParams(prev => ({ ...prev, [key]: value }));
