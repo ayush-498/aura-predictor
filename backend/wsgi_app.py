@@ -36,10 +36,15 @@ def health():
         'linear_regression_full': lr_full is not None,
     }
     num_loaded = sum(1 for v in models_status.values() if v)
+    all_ready = all(models_status.values())
     return jsonify({
         'status': 'healthy',
+        'service': 'AURA Predictor API',
+        'ready': num_loaded > 0,
+        'all_models_ready': all_ready,
         'models_loaded': num_loaded,
         'models': models_status,
+        'models_status': models_status,
         'timestamp': datetime.now(timezone.utc).isoformat(),
         'server': 'gunicorn/flask',
     })

@@ -54,14 +54,14 @@ export interface ModelMetric {
 
 export interface BackendHealth {
   status: string;
-  service: string;
-  models_loaded: {
-    gradient_boosting_core: boolean;
-    linear_regression_core: boolean;
-    gradient_boosting_full: boolean;
-    linear_regression_full: boolean;
-  };
-  all_models_ready: boolean;
+  service?: string;
+  server?: string;
+  ready?: boolean;
+  all_models_ready?: boolean;
+  models_loaded?: number | Record<string, boolean>;
+  models?: Record<string, boolean>;
+  models_status?: Record<string, boolean>;
+  timestamp?: string;
 }
 
 export const VALID_ROLES = [

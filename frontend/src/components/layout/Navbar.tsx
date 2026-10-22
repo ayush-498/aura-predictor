@@ -192,22 +192,25 @@ export const Navbar: React.FC<NavbarProps> = ({ isBackendOnline, onRefreshHealth
                 <span className="text-zinc-400 block font-mono text-[10px]">Loaded Pipelines:</span>
                 <div className="flex justify-between font-mono text-[11px]">
                   <span>Gradient Boosting (Core/Full):</span>
-                  <span className="text-emerald-500 font-bold">Ready</span>
+                  <span className={isBackendOnline ? "text-emerald-500 font-bold" : "text-amber-500 font-bold"}>
+                    {isBackendOnline ? "Ready" : "Standby (Local Fallback)"}
+                  </span>
                 </div>
                 <div className="flex justify-between font-mono text-[11px]">
                   <span>Linear Regression Baseline:</span>
-                  <span className="text-emerald-500 font-bold">Ready</span>
+                  <span className={isBackendOnline ? "text-emerald-500 font-bold" : "text-amber-500 font-bold"}>
+                    {isBackendOnline ? "Ready" : "Standby (Local Fallback)"}
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className="flex justify-between items-center pt-4 border-t border-zinc-100 dark:border-zinc-800 mt-4">
               <button
-                onClick={() => {
-                  if (onRefreshHealth) onRefreshHealth();
-                  setIsHealthModalOpen(false);
+                onClick={async () => {
+                  if (onRefreshHealth) await onRefreshHealth();
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs font-semibold hover:bg-zinc-100"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
               >
                 <RefreshCw className="w-3.5 h-3.5" /> Re-probe Port
               </button>

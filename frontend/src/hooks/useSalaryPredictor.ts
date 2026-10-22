@@ -25,7 +25,12 @@ export function useSalaryPredictor() {
   const checkBackendHealth = useCallback(async () => {
     try {
       const health = await salaryService.checkHealth();
-      setIsBackendOnline(health.all_models_ready);
+      const isOnline = Boolean(
+        health.all_models_ready ??
+        health.ready ??
+        (health.status === 'healthy' && (typeof health.models_loaded === 'number' ? health.models_loaded > 0 : true))
+      );
+      setIsBackendOnline(isOnline);
     } catch {
       setIsBackendOnline(false);
     }
