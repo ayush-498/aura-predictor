@@ -163,7 +163,17 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
           }));
           setLedger(prev => {
             const remoteIds = new Set(mapped.map(m => m.id));
-            const localOnly = prev.filter(p => !remoteIds.has(p.id));
+            const remoteNames = new Set(mapped.map(m => m.name.toLowerCase().trim()));
+            
+            // Keep baseline records and local pending records that haven't synced yet
+            const localOnly = prev.filter(p => {
+              if (remoteIds.has(p.id)) return false;
+              // Check if already represented in remote by name and salary
+              if (p.source !== 'Dataset Baseline' && remoteNames.has(p.name.toLowerCase().trim())) {
+                return false;
+              }
+              return true;
+            });
             return [...mapped, ...localOnly];
           });
         }
@@ -181,6 +191,12 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
 
   const addCandidate = (profile: EmployeeProfile) => {
     setLedger(prev => [profile, ...prev.filter(p => p.id !== profile.id)]);
+    // Persist globally to Supabase regardless of input data format
+    supabaseService.addLedgerCandidate(profile).then(saved => {
+      if (saved?.id && saved.id !== profile.id) {
+        setLedger(prev => prev.map(p => p.id === profile.id ? { ...p, id: saved.id! } : p));
+      }
+    }).catch(e => console.warn('Supabase candidate save skip:', e));
   };
 
   const addFromSimulator = (
@@ -188,14 +204,14 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
     prediction: PredictionResponse,
     candidateName?: string
   ): EmployeeProfile => {
-    const id = `SIM-${Date.now().toString().slice(-5)}`;
+    const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : `SIM-${Date.now().toString().slice(-5)}`;
     const currentSal = params.salary || 1200000;
     const hike = prediction.recommended_hike_pct;
     const newSal = prediction.projected_new_salary || Math.round(currentSal * (1 + hike / 100));
 
     const newRecord: EmployeeProfile = {
       id,
-      name: candidateName?.trim() || `${params.role} Candidate (${id})`,
+      name: candidateName?.trim() || `${params.role} Candidate (${id.slice(0, 8)})`,
       role: params.role,
       experience: params.experience,
       rating: params.rating,
@@ -210,16 +226,10 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
     };
 
     setLedger(prev => [newRecord, ...prev]);
-    supabaseService.addLedgerCandidate({
-      candidate_name: newRecord.name,
-      role: newRecord.role,
-      experience: newRecord.experience,
-      rating: newRecord.rating,
-      current_salary: newRecord.currentSalary,
-      approved_hike: newRecord.hikePct,
-      final_salary: newRecord.newSalary,
-      status: newRecord.status,
-      source: 'Simulator'
+    supabaseService.addLedgerCandidate(newRecord).then(saved => {
+      if (saved?.id && saved.id !== id) {
+        setLedger(prev => prev.map(p => p.id === id ? { ...p, id: saved.id! } : p));
+      }
     }).catch(e => console.warn('Supabase candidate save skip:', e));
     return newRecord;
   };
@@ -228,7 +238,7 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
     profile: ResumeParsedProfile,
     prediction: PredictionResponse
   ): EmployeeProfile => {
-    const id = `CV-${Date.now().toString().slice(-5)}`;
+    const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : `CV-${Date.now().toString().slice(-5)}`;
     const currentSal = profile.salary || 1200000;
     const hike = prediction.recommended_hike_pct;
     const newSal = prediction.projected_new_salary || Math.round(currentSal * (1 + hike / 100));
@@ -250,31 +260,58 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
     };
 
     setLedger(prev => [newRecord, ...prev]);
-    supabaseService.addLedgerCandidate({
-      candidate_name: newRecord.name,
-      role: newRecord.role,
-      experience: newRecord.experience,
-      rating: newRecord.rating,
-      current_salary: newRecord.currentSalary,
-      approved_hike: newRecord.hikePct,
-      final_salary: newRecord.newSalary,
-      status: newRecord.status,
-      source: 'Resume Scanner'
+    supabaseService.addLedgerCandidate(newRecord).then(saved => {
+      if (saved?.id && saved.id !== id) {
+        setLedger(prev => prev.map(p => p.id === id ? { ...p, id: saved.id! } : p));
+      }
     }).catch(e => console.warn('Supabase candidate save skip:', e));
     return newRecord;
   };
 
   const addBatch = (profiles: EmployeeProfile[]) => {
+    if (!profiles || profiles.length === 0) return;
     setLedger(prev => [...profiles, ...prev]);
+    
+    // Universal batch sync across all formats
+    supabaseService.addLedgerCandidatesBatch(profiles).then(savedList => {
+      if (savedList && savedList.length > 0) {
+        setLedger(prev => {
+          const updated = [...prev];
+          savedList.forEach((saved, idx) => {
+            const original = profiles[idx];
+            if (original && saved.id) {
+              const targetIdx = updated.findIndex(u => u.id === original.id || (u.name === original.name && u.currentSalary === original.currentSalary));
+              if (targetIdx !== -1) {
+                updated[targetIdx] = { ...updated[targetIdx], id: saved.id };
+              }
+            }
+          });
+          return updated;
+        });
+      }
+    }).catch(e => console.warn('Supabase batch save skip:', e));
   };
 
   const updateStatus = (id: string, status: 'Approved' | 'Review' | 'Flagged') => {
-    setLedger(prev => prev.map(emp => emp.id === id ? { ...emp, status } : emp));
+    let targetProfile: EmployeeProfile | undefined;
+    setLedger(prev => {
+      targetProfile = prev.find(emp => emp.id === id);
+      return prev.map(emp => emp.id === id ? { ...emp, status } : emp);
+    });
+
+    if (targetProfile) {
+      supabaseService.updateLedgerCandidate(id, { ...targetProfile, status }).catch(e => {
+        console.warn('Supabase status update skip:', e);
+      });
+    }
   };
 
   const removeCandidate = (id: string) => {
+    const target = ledger.find(emp => emp.id === id);
     setLedger(prev => prev.filter(emp => emp.id !== id));
-    supabaseService.deleteLedgerCandidate(id).catch(e => console.warn('Supabase candidate delete skip:', e));
+    supabaseService.deleteLedgerCandidate(id, target?.name).catch(e => {
+      console.warn('Supabase candidate delete skip:', e);
+    });
   };
 
   const clearLedger = () => {
