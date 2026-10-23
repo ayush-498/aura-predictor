@@ -18,12 +18,14 @@ interface LandingPageProps {
   isBackendOnline: boolean | null;
   onRefreshHealth?: () => void;
   onLaunchApp: (tab?: TabType, initialParams?: PredictionRequest) => void;
+  onLaunchPlatform?: () => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   isBackendOnline,
   onRefreshHealth,
   onLaunchApp,
+  onLaunchPlatform,
 }) => {
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
 
@@ -42,6 +44,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <LandingNavbar
         isBackendOnline={isBackendOnline}
         onOpenApp={handleOpenApp}
+        onLaunchPlatform={onLaunchPlatform}
         onRefreshHealth={onRefreshHealth}
       />
 

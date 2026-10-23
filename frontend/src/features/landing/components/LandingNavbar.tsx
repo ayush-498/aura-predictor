@@ -8,12 +8,14 @@ import { cn } from '../../../lib/utils';
 interface LandingNavbarProps {
   isBackendOnline: boolean | null;
   onOpenApp: (tab?: TabType) => void;
+  onLaunchPlatform?: () => void;
   onRefreshHealth?: () => void;
 }
 
 export const LandingNavbar: React.FC<LandingNavbarProps> = ({
   isBackendOnline,
   onOpenApp,
+  onLaunchPlatform,
   onRefreshHealth,
 }) => {
   const { isDark, toggleTheme } = useTheme();
@@ -136,7 +138,7 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
             <NavPillButton
               icon={LayoutDashboard}
               title="Launch Platform"
-              onClick={() => onOpenApp('predictor')}
+              onClick={() => onLaunchPlatform ? onLaunchPlatform() : onOpenApp('predictor')}
               size="sm"
               className="w-auto px-3.5 py-1.5"
               aria-label="Launch Platform Appraisal Predictor"
@@ -176,7 +178,7 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
                 title="Open Full ML Suite"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenApp('predictor');
+                  if (onLaunchPlatform) onLaunchPlatform(); else onOpenApp('predictor');
                 }}
                 className="w-full justify-center"
               />

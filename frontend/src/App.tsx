@@ -18,14 +18,18 @@ import { TelemetryLogsView } from './features/analytics/components/TelemetryLogs
 import { PipelineConfigView } from './features/analytics/components/PipelineConfigView';
 import { ResumeUploadSection } from './features/resume/components/ResumeUploadSection';
 import { GravityGridBackground } from './components/ui/GravityGridBackground';
+import { LoginPage } from './features/auth/LoginPage';
 import { PredictionRequest, ResumeParsedProfile } from './types';
 
 function AppContent() {
-  const [view, setView] = useState<'landing' | 'app'>(() => {
+  const [view, setView] = useState<'landing' | 'login' | 'app'>(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       if (params.get('view') === 'app' || window.location.hash === '#app') {
         return 'app';
+      }
+      if (params.get('view') === 'login' || window.location.hash === '#login') {
+        return 'login';
       }
     }
     return 'landing';
@@ -43,11 +47,13 @@ function AppContent() {
   } = useSalaryPredictor();
 
   // Handle URL history state for view toggling
-  const navigateToView = (newView: 'landing' | 'app', tab?: TabType) => {
+  const navigateToView = (newView: 'landing' | 'login' | 'app', tab?: TabType) => {
     setView(newView);
     if (tab) setActiveTab(tab);
     if (newView === 'app') {
       window.history.pushState(null, '', `?view=app&tab=${tab || activeTab}`);
+    } else if (newView === 'login') {
+      window.history.pushState(null, '', '?view=login');
     } else {
       window.history.pushState(null, '', window.location.pathname);
     }
@@ -80,16 +86,31 @@ function AppContent() {
 
   if (view === 'landing') {
     return (
-      <LandingPage
-        isBackendOnline={isBackendOnline}
-        onRefreshHealth={checkBackendHealth}
-        onLaunchApp={handleLaunchFromLanding}
+      <>
+        <GravityGridBackground />
+        <LandingPage
+          isBackendOnline={isBackendOnline}
+          onRefreshHealth={checkBackendHealth}
+          onLaunchApp={handleLaunchFromLanding}
+          onLaunchPlatform={() => navigateToView('login')}
+        />
+      </>
+    );
+  }
+
+  if (view === 'login') {
+    return (
+      <LoginPage
+        onLoginSuccess={() => navigateToView('app', 'predictor')}
+        onNavigateToLanding={() => navigateToView('landing')}
       />
     );
   }
 
   return (
-    <DashboardLayout
+    <>
+      <GravityGridBackground />
+      <DashboardLayout
       activeTab={activeTab}
       onSelectTab={(tab) => {
         setActiveTab(tab);
@@ -180,6 +201,7 @@ function AppContent() {
         <DocumentationView />
       )}
     </DashboardLayout>
+    </>
   );
 }
 
@@ -187,7 +209,6 @@ export default function App() {
   return (
     <ThemeProvider>
       <AppraisalLedgerProvider>
-        <GravityGridBackground />
         <AppContent />
       </AppraisalLedgerProvider>
     </ThemeProvider>
