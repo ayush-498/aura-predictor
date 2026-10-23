@@ -6,9 +6,9 @@ import { supabaseService } from '../services/supabase';
 const DEFAULT_STATE: PredictionRequest = {
   experience: 4.5,
   rating: 4.2,
-  role: 'SDE',
-  roles: ['SDE', 'Backend'],
-  skills: ['TypeScript', 'React', 'Node.js'],
+  role: '',
+  roles: [],
+  skills: [],
   salary: 1200000,
   location: 'Bangalore',
   status: 'Full Time',

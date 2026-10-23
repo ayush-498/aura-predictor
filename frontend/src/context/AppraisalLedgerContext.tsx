@@ -211,8 +211,8 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
 
     const newRecord: EmployeeProfile = {
       id,
-      name: candidateName?.trim() || `${params.role} Candidate (${id.slice(0, 8)})`,
-      role: params.role,
+      name: candidateName?.trim() || `${params.role || 'Engineering'} Candidate (${id.slice(0, 8)})`,
+      role: params.role || 'Software Engineer',
       experience: params.experience,
       rating: params.rating,
       currentSalary: currentSal,
@@ -221,7 +221,7 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
       newSalary: newSal,
       status: params.rating >= 4.0 ? 'Approved' : 'Review',
       avatar: `https://images.unsplash.com/photo-${1534528741775 + Math.floor(Math.random() * 10000)}?w=100&h=100&fit=crop&crop=faces`,
-      department: `${params.role} Engineering`,
+      department: `${params.role || 'Software'} Engineering`,
       source: 'Simulator'
     };
 

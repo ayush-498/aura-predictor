@@ -59,7 +59,7 @@ export const PredictionResultCard: React.FC<PredictionResultCardProps> = ({
     const text = `
 COMPENSATION REVISION & APPRAISAL MEMORANDUM
 Date: ${letterDate}
-Job Role: ${params.role} Engineer
+Job Role: ${params.role ? `${params.role} Engineer` : 'Software Professional'}
 Location: ${params.location || 'Bangalore'}
 Performance Rating: ${params.rating.toFixed(1)} / 5.0
 Experience Tenure: ${params.experience.toFixed(1)} Years
@@ -227,7 +227,7 @@ Status: Confirmed & Digitally Authenticated
                   <span className="text-[11px] font-bold text-emerald-300 flex items-center gap-1">
                     <Zap className="w-3 h-3 text-emerald-400" /> Active Stack:
                   </span>
-                  {(params.roles || [params.role]).map(r => (
+                  {(params.roles && params.roles.length > 0 ? params.roles : (params.role ? [params.role] : [])).map(r => (
                     <span key={r} className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-medium">
                       {r}
                     </span>
@@ -304,7 +304,7 @@ Status: Confirmed & Digitally Authenticated
               <div className="p-3 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 font-mono text-xs space-y-1">
                 <div className="flex justify-between">
                   <span>Role:</span>
-                  <strong>{params.role} Engineer ({params.location})</strong>
+                  <strong>{params.role ? `${params.role} Engineer` : 'Software Professional'} ({params.location})</strong>
                 </div>
                 <div className="flex justify-between">
                   <span>Performance Rating:</span>

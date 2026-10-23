@@ -16,6 +16,8 @@ import {
   Clock,
   Code2,
   ShieldAlert,
+  ChevronDown,
+  X,
 } from 'lucide-react';
 import { Card, CardHeaderTitle } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
@@ -61,9 +63,46 @@ export const PredictorForm: React.FC<PredictorFormProps> = ({
   // Active multi-roles and skills
   const selectedRoles: string[] = (params.roles && params.roles.length > 0)
     ? params.roles
-    : (params.role ? [params.role] : ['SDE']);
+    : (params.role ? [params.role] : []);
 
   const selectedSkills: string[] = params.skills || [];
+
+  // Dropdown role handlers
+  const handleAddRole = (roleItem: string) => {
+    if (!roleItem || selectedRoles.includes(roleItem)) return;
+    const nextRoles = [...selectedRoles, roleItem];
+    onUpdate('roles', nextRoles);
+    if (!params.role || !nextRoles.includes(params.role)) {
+      onUpdate('role', roleItem);
+    }
+  };
+
+  const handleRemoveRole = (roleItem: string) => {
+    const nextRoles = selectedRoles.filter(r => r !== roleItem);
+    onUpdate('roles', nextRoles);
+    if (params.role === roleItem) {
+      onUpdate('role', nextRoles.length > 0 ? nextRoles[0] : '');
+    }
+  };
+
+  const handleSetPrimaryRole = (roleItem: string) => {
+    onUpdate('role', roleItem);
+    if (!selectedRoles.includes(roleItem)) {
+      onUpdate('roles', [roleItem, ...selectedRoles]);
+    } else {
+      const nextRoles = [roleItem, ...selectedRoles.filter(r => r !== roleItem)];
+      onUpdate('roles', nextRoles);
+    }
+  };
+
+  const handleAddSkill = (skillItem: string) => {
+    if (!skillItem || selectedSkills.includes(skillItem)) return;
+    onUpdate('skills', [...selectedSkills, skillItem]);
+  };
+
+  const handleRemoveSkill = (skillItem: string) => {
+    onUpdate('skills', selectedSkills.filter(s => s !== skillItem));
+  };
 
   // Career Seniority Tier helper
   const getSeniorityTier = (exp: number) => {
@@ -316,17 +355,20 @@ export const PredictorForm: React.FC<PredictorFormProps> = ({
         </div>
       </div>
 
-      {/* SECTION 2: Technical Domains & Multi-Skill Stack (CORE UPGRADE) */}
+      {/* SECTION 2: Technical Domains & Multi-Skill Stack (MINIMAL DROPDOWN SELECTION) */}
       <div className="space-y-3.5 p-4 rounded-2xl bg-zinc-950/70 border border-emerald-500/20 shadow-inner">
-        <div className="flex items-center justify-between">
+        {/* Section Header */}
+        <div className="flex items-center justify-between pb-2 border-b border-white/5">
           <div className="flex items-center gap-2">
-            <Layers className="w-4 h-4 text-emerald-400" />
+            <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <Layers className="w-3.5 h-3.5" />
+            </div>
             <div>
               <span className="text-xs font-bold text-white block">
                 Technical Domains & Multi-Skill Stack
               </span>
               <span className="text-[10px] text-zinc-400">
-                Select multiple roles or skills to model realistic cross-domain compensation
+                Select primary/secondary roles & tech stack at runtime to model cross-domain synergy
               </span>
             </div>
           </div>
@@ -338,103 +380,183 @@ export const PredictorForm: React.FC<PredictorFormProps> = ({
           </div>
         </div>
 
-        {/* Tier 1: Functional Roles / Domains (Multi-Select) */}
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between text-[11px] font-semibold text-zinc-300">
-            <span>Primary & Secondary Job Roles:</span>
-            <span className="text-[10px] text-zinc-400">★ designates ML baseline role</span>
-          </div>
+        {/* 2-Column Minimal Dropdown Pickers */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          {/* Roles Selector Dropdown & Badges */}
+          <div className="space-y-2 p-3 rounded-xl bg-zinc-900/60 border border-white/5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
+                Job Roles / Domains
+              </label>
+              <span className="text-[10px] text-zinc-400">
+                ★ First role is Primary
+              </span>
+            </div>
 
-          <div className="flex flex-wrap gap-1.5">
-            {VALID_ROLES.map(role => {
-              const isSelected = selectedRoles.includes(role);
-              const isPrimary = params.role === role;
-
-              return (
-                <button
-                  key={role}
-                  type="button"
-                  onClick={() => handleToggleRole(role)}
-                  className={`text-xs px-2.5 py-1.5 rounded-xl font-medium transition-all flex items-center gap-1.5 ${
-                    isSelected
-                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-sm shadow-emerald-900/40 font-semibold ring-1 ring-emerald-400/50 scale-[1.02]'
-                      : 'bg-white/[0.04] border border-white/5 text-zinc-300 hover:bg-white/[0.08] hover:text-white'
-                  }`}
-                >
-                  {isSelected && <Check className="w-3 h-3 text-emerald-200" />}
-                  <span>{role}</span>
-                  {isPrimary && (
-                    <span className="text-[9px] px-1 py-0.2 rounded bg-black/40 text-amber-300 font-bold ml-0.5">
-                      ★ Primary
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Tier 2: Extended Technical Competencies */}
-        <div className="space-y-1.5 pt-1 border-t border-white/5">
-          <div className="flex items-center justify-between text-[11px] font-semibold text-zinc-300">
-            <span className="flex items-center gap-1">
-              <Code2 className="w-3.5 h-3.5 text-teal-400" />
-              Specialized Skills & Technologies:
-            </span>
-            {selectedSkills.length > 0 && (
-              <button
-                type="button"
-                onClick={() => onUpdate('skills', [])}
-                className="text-[10px] text-zinc-400 hover:text-rose-400 underline transition-colors"
+            {/* Dropdown to add roles */}
+            <div className="relative">
+              <select
+                value=""
+                onChange={(e) => {
+                  if (e.target.value) {
+                    handleAddRole(e.target.value);
+                  }
+                }}
+                className="w-full text-xs bg-zinc-950 border border-white/10 rounded-xl px-3 py-2 text-zinc-200 focus:outline-none focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/30 transition-all cursor-pointer appearance-none pr-8"
               >
-                Clear all skills
-              </button>
-            )}
+                <option value="" disabled>
+                  {selectedRoles.length === 0 ? '+ Select Primary Job Role...' : '+ Add Secondary Role / Domain...'}
+                </option>
+                {VALID_ROLES.filter(r => !selectedRoles.includes(r)).map(role => (
+                  <option key={role} value={role} className="bg-zinc-900 text-zinc-200">
+                    {role}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-zinc-400">
+                <ChevronDown className="w-3.5 h-3.5" />
+              </div>
+            </div>
+
+            {/* Selected Roles Badges */}
+            <div className="min-h-[36px] flex flex-wrap gap-1.5 items-center pt-1">
+              {selectedRoles.length === 0 ? (
+                <span className="text-[11px] text-zinc-500 italic">
+                  No roles selected yet. Pick a primary role from the dropdown above.
+                </span>
+              ) : (
+                selectedRoles.map((role) => {
+                  const isPrimary = params.role === role;
+                  return (
+                    <div
+                      key={role}
+                      className={`inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border transition-all ${
+                        isPrimary
+                          ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-400/50 shadow-sm shadow-emerald-950/50 font-semibold'
+                          : 'bg-zinc-800/80 hover:bg-zinc-800 border-white/10 text-zinc-300'
+                      }`}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => handleSetPrimaryRole(role)}
+                        title={isPrimary ? 'Current ML Baseline Primary Role' : 'Click to make Primary Role'}
+                        className="flex items-center gap-1 hover:underline"
+                      >
+                        {isPrimary && (
+                          <span className="text-[9px] px-1 py-0.2 rounded bg-black/40 text-amber-300 font-bold">
+                            ★ Primary
+                          </span>
+                        )}
+                        <span>{role}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveRole(role)}
+                        title={`Remove ${role}`}
+                        className="text-zinc-400 hover:text-rose-400 p-0.5 rounded transition-colors ml-0.5"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  );
+                })
+              )}
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto pr-1">
-            {EXTENDED_TECHNICAL_SKILLS.map(skill => {
-              const isSelected = selectedSkills.includes(skill);
-              return (
+          {/* Skills Selector Dropdown & Badges */}
+          <div className="space-y-2 p-3 rounded-xl bg-zinc-900/60 border border-white/5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
+                <Code2 className="w-3.5 h-3.5 text-teal-400" />
+                Specialized Skills & Tech
+              </label>
+              {selectedSkills.length > 0 && (
                 <button
-                  key={skill}
                   type="button"
-                  onClick={() => handleToggleSkill(skill)}
-                  className={`text-[11px] px-2 py-1 rounded-lg transition-all flex items-center gap-1 ${
-                    isSelected
-                      ? 'bg-teal-500/20 text-teal-200 border border-teal-500/40 font-semibold shadow-sm'
-                      : 'bg-white/[0.02] border border-white/5 text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-200'
-                  }`}
+                  onClick={() => onUpdate('skills', [])}
+                  className="text-[10px] text-zinc-400 hover:text-rose-400 underline transition-colors"
                 >
-                  {isSelected && <Check className="w-2.5 h-2.5 text-teal-300" />}
-                  <span>{skill}</span>
+                  Clear all
                 </button>
-              );
-            })}
+              )}
+            </div>
+
+            {/* Dropdown to add skills */}
+            <div className="relative">
+              <select
+                value=""
+                onChange={(e) => {
+                  if (e.target.value) {
+                    handleAddSkill(e.target.value);
+                  }
+                }}
+                className="w-full text-xs bg-zinc-950 border border-white/10 rounded-xl px-3 py-2 text-zinc-200 focus:outline-none focus:border-teal-500/60 focus:ring-1 focus:ring-teal-500/30 transition-all cursor-pointer appearance-none pr-8"
+              >
+                <option value="" disabled>
+                  {selectedSkills.length === 0 ? '+ Select Skills & Technologies...' : '+ Add Another Skill...'}
+                </option>
+                {EXTENDED_TECHNICAL_SKILLS.filter(s => !selectedSkills.includes(s)).map(skill => (
+                  <option key={skill} value={skill} className="bg-zinc-900 text-zinc-200">
+                    {skill}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-zinc-400">
+                <ChevronDown className="w-3.5 h-3.5" />
+              </div>
+            </div>
+
+            {/* Selected Skills Badges */}
+            <div className="min-h-[36px] max-h-24 overflow-y-auto pr-1 flex flex-wrap gap-1.5 items-center pt-1">
+              {selectedSkills.length === 0 ? (
+                <span className="text-[11px] text-zinc-500 italic">
+                  No skills selected yet. Add tech stack from the dropdown to unlock synergy hike.
+                </span>
+              ) : (
+                selectedSkills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-lg bg-teal-500/15 text-teal-200 border border-teal-500/30 font-medium"
+                  >
+                    <span>{skill}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveSkill(skill)}
+                      title={`Remove ${skill}`}
+                      className="text-teal-400 hover:text-rose-400 p-0.5 transition-colors"
+                    >
+                      <X className="w-2.5 h-2.5" />
+                    </button>
+                  </span>
+                ))
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Live Multi-Skill Synergy Banner */}
+        {/* Live Multi-Skill Synergy Banner (Minimal & Refined) */}
         <div className="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-emerald-950/40 via-teal-950/30 to-zinc-900 border border-emerald-500/30 text-xs">
           <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-emerald-400 fill-emerald-400 flex-shrink-0 animate-pulse" />
+            <Zap className={`w-4 h-4 flex-shrink-0 ${synergyBonus > 0 ? 'text-emerald-400 fill-emerald-400 animate-pulse' : 'text-zinc-500'}`} />
             <div>
-              <span className="font-bold text-emerald-300 block">
+              <span className={`font-bold block ${synergyBonus > 0 ? 'text-emerald-300' : 'text-zinc-300'}`}>
                 {synergyBonus > 0
                   ? `+${synergyBonus}% Skill Synergy Premium Active`
-                  : 'Single Domain Baseline'}
+                  : 'Single Domain Baseline (0.0% Bonus)'}
               </span>
               <p className="text-[10px] text-zinc-400">
                 {selectedRoles.length > 1 || selectedSkills.length > 0
                   ? `${selectedRoles.length} complementary domains & ${selectedSkills.length} skills amplify candidate market value`
-                  : 'Add complementary roles or technical skills to unlock synergy hike premiums'}
+                  : 'Select complementary roles or technical skills from the dropdowns above to unlock synergy hike premiums'}
               </p>
             </div>
           </div>
 
-          <div className="text-right">
+          <div className="text-right flex-shrink-0 ml-3">
             <span className="text-[10px] text-zinc-400 uppercase tracking-wider block">Bonus Hike</span>
-            <span className="font-mono font-bold text-emerald-400 text-xs">
+            <span className={`font-mono font-bold text-xs ${synergyBonus > 0 ? 'text-emerald-400' : 'text-zinc-400'}`}>
               +{synergyBonus.toFixed(1)}%
             </span>
           </div>

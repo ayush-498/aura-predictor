@@ -59,6 +59,8 @@ function AppContent() {
       if (initialParams.experience !== undefined) updateParam('experience', initialParams.experience);
       if (initialParams.rating !== undefined) updateParam('rating', initialParams.rating);
       if (initialParams.role !== undefined) updateParam('role', initialParams.role);
+      if (initialParams.roles !== undefined) updateParam('roles', initialParams.roles);
+      if (initialParams.skills !== undefined) updateParam('skills', initialParams.skills);
       if (initialParams.salary !== undefined) updateParam('salary', initialParams.salary);
       if (initialParams.location !== undefined) updateParam('location', initialParams.location);
     }
