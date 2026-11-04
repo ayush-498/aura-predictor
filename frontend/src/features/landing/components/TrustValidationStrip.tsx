@@ -43,9 +43,6 @@ export const TrustValidationStrip: React.FC = () => {
               <div className="text-xs font-semibold text-zinc-200">
                 Verified Records
               </div>
-              <div className="text-[11px] text-zinc-300 dark:text-zinc-300 mt-0.5">
-                Multi-cohort training dataset
-              </div>
             </div>
           </LandingGlowCard>
 
@@ -59,9 +56,6 @@ export const TrustValidationStrip: React.FC = () => {
               </div>
               <div className="text-xs font-semibold text-zinc-200">
                 Inference Latency
-              </div>
-              <div className="text-[11px] text-zinc-300 dark:text-zinc-300 mt-0.5">
-                Real-time API response SLA
               </div>
             </div>
           </LandingGlowCard>
@@ -77,9 +71,6 @@ export const TrustValidationStrip: React.FC = () => {
               <div className="text-xs font-semibold text-zinc-200">
                 Predictive R² Score
               </div>
-              <div className="text-[11px] text-zinc-300 dark:text-zinc-300 mt-0.5">
-                RMSE 1.42% vs 3.88% OLS
-              </div>
             </div>
           </LandingGlowCard>
 
@@ -93,9 +84,6 @@ export const TrustValidationStrip: React.FC = () => {
               </div>
               <div className="text-xs font-semibold text-zinc-200">
                 Adverse Disparity
-              </div>
-              <div className="text-[11px] text-zinc-300 dark:text-zinc-300 mt-0.5">
-                EEOC Four-Fifths compliance
               </div>
             </div>
           </LandingGlowCard>

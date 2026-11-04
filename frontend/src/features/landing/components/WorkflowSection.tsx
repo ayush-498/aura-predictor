@@ -152,12 +152,9 @@ export const WorkflowSection: React.FC<WorkflowSectionProps> = ({ onOpenApp }) =
                     Step {step.stepNumber}
                   </span>
                 </div>
-                <h3 className="font-bold text-lg sm:text-xl text-white mb-2 tracking-tight">
+                <h3 className="font-bold text-lg sm:text-xl text-white tracking-tight">
                   {step.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-300 dark:text-zinc-300 leading-relaxed line-clamp-3">
-                  {step.tagline}
-                </p>
               </div>
 
               <div className="mt-6 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-semibold">
@@ -190,10 +187,6 @@ export const WorkflowSection: React.FC<WorkflowSectionProps> = ({ onOpenApp }) =
                 </h3>
               </div>
             </div>
-
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
-              {currentStep.description}
-            </p>
 
             {/* Sub-steps */}
             <div className="space-y-2.5">

@@ -20,7 +20,6 @@ export const PipelineConfigView: React.FC = () => {
       <CardHeaderTitle
         icon={Settings}
         title="Statutory Appraisal Policy & Bounds Configuration"
-        subtitle="Define corporate boundaries, high-performer multipliers, and review gates"
         action={
           <Button size="sm" onClick={handleSave}>
             {saved ? <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> : <Save className="w-3.5 h-3.5 mr-1" />}
@@ -41,7 +40,6 @@ export const PipelineConfigView: React.FC = () => {
           <CardHeaderTitle
             icon={Shield}
             title="Statutory Increment Bounds"
-            subtitle="Hard floor and ceiling limits"
           />
 
           <div>
@@ -58,7 +56,6 @@ export const PipelineConfigView: React.FC = () => {
               onChange={(e) => setMinFloor(parseFloat(e.target.value))}
               className="w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-600"
             />
-            <span className="text-[10px] text-zinc-400 mt-1 block">Protects against inflation attrition</span>
           </div>
 
           <div>
@@ -75,7 +72,6 @@ export const PipelineConfigView: React.FC = () => {
               onChange={(e) => setMaxCeiling(parseFloat(e.target.value))}
               className="w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-rose-500"
             />
-            <span className="text-[10px] text-zinc-400 mt-1 block">Maximum organizational budget limit</span>
           </div>
         </Card>
 
@@ -83,7 +79,6 @@ export const PipelineConfigView: React.FC = () => {
           <CardHeaderTitle
             icon={AlertTriangle}
             title="Merit Multipliers & Review Gates"
-            subtitle="Performance thresholds and bonuses"
           />
 
           <div>
@@ -100,7 +95,6 @@ export const PipelineConfigView: React.FC = () => {
               onChange={(e) => setCriticalCutoff(parseFloat(e.target.value))}
               className="w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
             />
-            <span className="text-[10px] text-zinc-400 mt-1 block">Ratings below this trigger PIP review</span>
           </div>
 
           <div>
@@ -117,7 +111,6 @@ export const PipelineConfigView: React.FC = () => {
               onChange={(e) => setHighPerformerBonus(parseFloat(e.target.value))}
               className="w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-600"
             />
-            <span className="text-[10px] text-zinc-400 mt-1 block">Multiplier applied to high-performer merit hikes</span>
           </div>
         </Card>
       </div>

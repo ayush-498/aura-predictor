@@ -244,9 +244,6 @@ export const MLEngineDeepDive: React.FC<MLEngineDeepDiveProps> = ({ onOpenApp })
             <h3 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
               <Zap className="w-5 h-5 text-teal-500" /> Shapley Feature Attribution
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-              Exact Shapley additive decomposition (<span className="font-mono text-zinc-700 dark:text-zinc-300">φ_i</span>) ensuring every appraisal recommendation is transparent and defensible.
-            </p>
           </div>
 
           {/* Shapley Bars */}
@@ -266,10 +263,6 @@ export const MLEngineDeepDive: React.FC<MLEngineDeepDiveProps> = ({ onOpenApp })
                     style={{ width: `${item.importance}%` }}
                   />
                 </div>
-
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-tight">
-                  {item.description}
-                </p>
               </div>
             ))}
           </div>
@@ -283,9 +276,6 @@ export const MLEngineDeepDive: React.FC<MLEngineDeepDiveProps> = ({ onOpenApp })
             <div className="text-emerald-300 font-bold text-sm tracking-wide">
               hike(x) = φ₀ + ∑ φᵢ(x)
             </div>
-            <p className="text-[11px] text-zinc-400 leading-snug">
-              Ensures zero hidden black-box interactions; every single percent hike is accounted for by measurable factors.
-            </p>
           </div>
 
         </div>

@@ -49,9 +49,6 @@ export const DualCTASection: React.FC<DualCTASectionProps> = ({
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
                 Test Drive the Live Simulator
               </h3>
-              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
-                Experience sub-15ms Gradient Boosting predictions with live SHAP attribution, candidate cohort modeling, and cryptographic audit signing.
-              </p>
             </div>
 
             <ul className="space-y-3 pt-2">
@@ -79,9 +76,6 @@ export const DualCTASection: React.FC<DualCTASectionProps> = ({
               <span>Launch Live Simulator & Workspace</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-            <span className="block text-center text-[11px] font-mono text-zinc-400 mt-2">
-              Instant access to active development environment
-            </span>
           </div>
         </LandingGlowCard>
 
@@ -102,9 +96,6 @@ export const DualCTASection: React.FC<DualCTASectionProps> = ({
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
                 Enterprise Deployment & Briefing
               </h3>
-              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
-                Deploy AURA in your dedicated private cloud tenant (AWS, GCP, Azure). Fine-tune algorithms on your historical compensation records with custom HRIS webhooks.
-              </p>
             </div>
 
             <ul className="space-y-3 pt-2">
@@ -132,9 +123,6 @@ export const DualCTASection: React.FC<DualCTASectionProps> = ({
               <Cpu className="w-4 h-4 text-emerald-600" />
               <span>Schedule Architecture Briefing</span>
             </button>
-            <span className="block text-center text-[11px] font-mono text-zinc-400 mt-2">
-              Includes SOC-2 security packet and legal compliance memo
-            </span>
           </div>
         </LandingGlowCard>
 

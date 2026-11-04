@@ -97,6 +97,10 @@ export function useSalaryPredictor() {
     setParams(prev => ({ ...prev, [key]: value }));
   }, []);
 
+  const updateParams = useCallback((newParams: Partial<PredictionRequest>) => {
+    setParams(prev => ({ ...prev, ...newParams }));
+  }, []);
+
   const resetParams = useCallback(() => {
     setParams(DEFAULT_STATE);
   }, []);
@@ -107,6 +111,7 @@ export function useSalaryPredictor() {
     loading,
     isBackendOnline,
     updateParam,
+    updateParams,
     resetParams,
     checkBackendHealth,
   };

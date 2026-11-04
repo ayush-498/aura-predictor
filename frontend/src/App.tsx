@@ -42,6 +42,7 @@ function AppContent() {
     loading,
     isBackendOnline,
     updateParam,
+    updateParams,
     resetParams,
     checkBackendHealth,
   } = useSalaryPredictor();
@@ -62,25 +63,25 @@ function AppContent() {
 
   const handleLaunchFromLanding = (targetTab: TabType = 'predictor', initialParams?: PredictionRequest) => {
     if (initialParams) {
-      if (initialParams.experience !== undefined) updateParam('experience', initialParams.experience);
-      if (initialParams.rating !== undefined) updateParam('rating', initialParams.rating);
-      if (initialParams.role !== undefined) updateParam('role', initialParams.role);
-      if (initialParams.roles !== undefined) updateParam('roles', initialParams.roles);
-      if (initialParams.skills !== undefined) updateParam('skills', initialParams.skills);
-      if (initialParams.salary !== undefined) updateParam('salary', initialParams.salary);
-      if (initialParams.location !== undefined) updateParam('location', initialParams.location);
+      updateParams({
+        ...initialParams,
+        roles: initialParams.roles || (initialParams.role ? [initialParams.role] : []),
+        skills: initialParams.skills || [],
+      });
     }
     navigateToView('app', targetTab);
   };
 
   const handleApplyFromResume = (profile: ResumeParsedProfile) => {
-    updateParam('role', profile.role);
-    updateParam('roles', [profile.role, ...(profile.skills || []).slice(0, 3)]);
-    updateParam('skills', profile.skills || []);
-    updateParam('experience', profile.experience);
-    updateParam('rating', profile.rating);
-    if (profile.salary) updateParam('salary', profile.salary);
-    if (profile.location) updateParam('location', profile.location);
+    updateParams({
+      role: profile.role,
+      roles: [profile.role, ...(profile.skills || []).slice(0, 3)],
+      skills: profile.skills || [],
+      experience: profile.experience,
+      rating: profile.rating,
+      salary: profile.salary,
+      location: profile.location,
+    });
     setActiveTab('predictor');
   };
 
@@ -126,6 +127,7 @@ function AppContent() {
             <PredictorForm
               params={params}
               onUpdate={updateParam}
+              onUpdateMultiple={updateParams}
               onReset={resetParams}
               loading={loading}
               onOpenResumeScanner={() => setActiveTab('resume')}
@@ -156,7 +158,11 @@ function AppContent() {
       {activeTab === 'cohorts' && (
         <EmployeeCohortsView
           onSelectRoleForSimulator={(role) => {
-            updateParam('role', role);
+            updateParams({
+              role,
+              roles: [role],
+              skills: [], // Reset skills for new cohort simulation
+            });
             setActiveTab('predictor');
           }}
         />
@@ -169,11 +175,15 @@ function AppContent() {
       {activeTab === 'appraisals' && (
         <RecentAppraisalsTable
           onSelectEmployee={emp => {
-            updateParam('role', emp.role);
-            updateParam('experience', emp.experience);
-            updateParam('rating', emp.rating);
-            if (emp.currentSalary) updateParam('salary', emp.currentSalary);
-            if (emp.location) updateParam('location', emp.location);
+            updateParams({
+              role: emp.role,
+              roles: [emp.role],
+              skills: [], // Reset skills so new person simulation starts clean without carryover
+              experience: emp.experience,
+              rating: emp.rating,
+              salary: emp.currentSalary || 1200000,
+              location: emp.location || 'Bangalore',
+            });
             setActiveTab('predictor');
           }}
           onNavigateToSimulator={() => setActiveTab('predictor')}

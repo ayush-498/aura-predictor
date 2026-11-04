@@ -130,10 +130,6 @@ export const SecurityIntegrationsSection: React.FC = () => {
                   {card.title}
                 </h3>
 
-                <p className="text-xs text-zinc-300 dark:text-zinc-300 leading-relaxed">
-                  {card.description}
-                </p>
-
                 <ul className="space-y-2 pt-2 border-t border-white/10">
                   {card.points.map((pt, pIdx) => (
                     <li key={pIdx} className="flex items-start gap-2 text-xs text-zinc-300 dark:text-zinc-300">

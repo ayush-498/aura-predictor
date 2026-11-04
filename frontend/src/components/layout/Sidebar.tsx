@@ -98,7 +98,11 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
               </span>
             )}
             <button
-              onClick={onToggleCollapsed}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleCollapsed();
+              }}
               aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               className={cn(

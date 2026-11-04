@@ -184,12 +184,9 @@ export const CoreFeatureMatrix: React.FC<CoreFeatureMatrixProps> = ({ onOpenApp 
                     {pillar.pillarTag}
                   </span>
                 </div>
-                <h3 className="font-bold text-base sm:text-lg text-white leading-snug mb-2">
+                <h3 className="font-bold text-base sm:text-lg text-white leading-snug">
                   {pillar.title}
                 </h3>
-                <p className="text-xs text-zinc-300 dark:text-zinc-300 line-clamp-3 leading-relaxed">
-                  {pillar.subtitle}
-                </p>
               </div>
 
               <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-semibold">
@@ -228,10 +225,6 @@ export const CoreFeatureMatrix: React.FC<CoreFeatureMatrixProps> = ({ onOpenApp 
                 </h3>
               </div>
             </div>
-
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
-              {current.subtitle}
-            </p>
 
             {/* Capabilities list */}
             <div className="space-y-3">

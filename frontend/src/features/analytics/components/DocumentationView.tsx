@@ -9,7 +9,6 @@ export const DocumentationView: React.FC = () => {
         <CardHeaderTitle
           icon={FileSpreadsheet}
           title="Corporate Compensation & Appraisal Policy Manual"
-          subtitle="Operational rules governing Machine Learning-assisted salary increments"
         />
 
         <div className="space-y-4 text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">

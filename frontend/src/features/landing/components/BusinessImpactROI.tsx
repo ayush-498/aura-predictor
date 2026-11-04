@@ -73,7 +73,6 @@ export const BusinessImpactROI: React.FC<BusinessImpactROIProps> = ({ onOpenCons
           <p className="text-xs text-white mt-1 font-semibold">
             Cycle Acceleration
           </p>
-          <span className="text-[11px] text-zinc-300 dark:text-zinc-300 block mt-0.5">8.4 weeks reduced to 48 hours</span>
         </LandingGlowCard>
 
         <LandingGlowCard accent="amber" className="p-6">
@@ -86,7 +85,6 @@ export const BusinessImpactROI: React.FC<BusinessImpactROIProps> = ({ onOpenCons
           <p className="text-xs text-white mt-1 font-semibold">
             Budget Waste Eliminated
           </p>
-          <span className="text-[11px] text-zinc-300 dark:text-zinc-300 block mt-0.5">Zero uncalibrated manager drift</span>
         </LandingGlowCard>
 
         <LandingGlowCard accent="blue" className="p-6">
@@ -99,7 +97,6 @@ export const BusinessImpactROI: React.FC<BusinessImpactROIProps> = ({ onOpenCons
           <p className="text-xs text-white mt-1 font-semibold">
             Unexplained Pay Disparity
           </p>
-          <span className="text-[11px] text-zinc-300 dark:text-zinc-300 block mt-0.5">Mathematical EEOC compliance</span>
         </LandingGlowCard>
 
         <LandingGlowCard accent="emerald" className="p-6">
@@ -112,7 +109,6 @@ export const BusinessImpactROI: React.FC<BusinessImpactROIProps> = ({ onOpenCons
           <p className="text-xs text-white mt-1 font-semibold">
             First-Year Enterprise ROI
           </p>
-          <span className="text-[11px] text-zinc-300 dark:text-zinc-300 block mt-0.5">Benchmarked across client cohorts</span>
         </LandingGlowCard>
       </div>
 
@@ -203,7 +199,6 @@ export const BusinessImpactROI: React.FC<BusinessImpactROIProps> = ({ onOpenCons
                 <span className="text-2xl sm:text-3xl font-extrabold font-mono text-emerald-600 dark:text-emerald-400 block mt-0.5">
                   {calculation.formattedLeakage}
                 </span>
-                <span className="text-[10px] text-zinc-400 font-mono">from 14.2% uncalibrated drift</span>
               </div>
 
               <div>
@@ -211,7 +206,6 @@ export const BusinessImpactROI: React.FC<BusinessImpactROIProps> = ({ onOpenCons
                 <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-900 dark:text-white block mt-0.5">
                   {calculation.hoursSaved.toLocaleString()} hrs
                 </span>
-                <span className="text-[10px] text-zinc-400 font-mono">saved across calibration loops</span>
               </div>
             </div>
 

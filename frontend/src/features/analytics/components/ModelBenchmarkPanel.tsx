@@ -74,7 +74,6 @@ export const ModelBenchmarkPanel: React.FC = () => {
       <CardHeaderTitle
         icon={Cpu}
         title="Empirical Model Performance & Evaluation Benchmarks"
-        subtitle={provenance}
         action={
           <Badge variant={isLive ? 'success' : 'outline'} className="font-mono text-xs self-start sm:self-auto">
             {isLive ? 'Live API Verified Metrics' : 'Reference Baseline'}
@@ -92,9 +91,6 @@ export const ModelBenchmarkPanel: React.FC = () => {
           <div className="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-2 font-mono">
             {bestR2.toFixed(3)}
           </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-            Top model: {bestModel.Model} ({bestModel.Experiment.split('(')[0].trim()})
-          </p>
         </Card>
 
         <Card className="p-5">
@@ -105,9 +101,6 @@ export const ModelBenchmarkPanel: React.FC = () => {
           <div className="text-3xl font-black text-blue-600 dark:text-blue-400 mt-2 font-mono">
             ±{bestMAE.toFixed(2)}%
           </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-            Mean deviation across {metrics.length} validated models
-          </p>
         </Card>
 
         <Card className="p-5">
@@ -118,9 +111,6 @@ export const ModelBenchmarkPanel: React.FC = () => {
           <div className="text-3xl font-black text-purple-600 dark:text-purple-400 mt-2 font-mono">
             {bestRMSE.toFixed(2)}
           </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-            Standard error penalty on 20% holdout test dataset
-          </p>
         </Card>
       </div>
 
@@ -131,7 +121,6 @@ export const ModelBenchmarkPanel: React.FC = () => {
           <CardHeaderTitle
             icon={Layers}
             title="Gini Feature Importance (Tree Regressor)"
-            subtitle="Empirical contribution weights extracted from Gradient Boosting pipeline"
           />
 
           <div className="space-y-4">
@@ -154,10 +143,6 @@ export const ModelBenchmarkPanel: React.FC = () => {
               </div>
             ))}
           </div>
-
-          <div className="text-xs text-zinc-500 dark:text-zinc-400 pt-2 border-t border-zinc-100 dark:border-zinc-800">
-            Total working experience and current compensation tier dictate baseline expectations, while performance appraisal rating calibrates the increment magnitude.
-          </div>
         </Card>
 
         {/* Experiment Results Table */}
@@ -165,7 +150,6 @@ export const ModelBenchmarkPanel: React.FC = () => {
           <CardHeaderTitle
             icon={BarChart3}
             title="Cross-Validation Experiment Log"
-            subtitle="Evaluation results on 20% held-out test split"
             action={
               <Badge variant="outline" className="text-[10px]">
                 80/20 Train/Test
