@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Navbar } from './Navbar';
 import { Sidebar, TabType } from './Sidebar';
 
@@ -22,25 +22,54 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   // Start with collapsed for a clean, spacious dashboard
   const [collapsed, setCollapsed] = useState(true);
   const sidebarRef = useRef<HTMLElement | null>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastExpandedAt = useRef<number>(0);
+
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
 
   const handleSelectTab = (tab: TabType) => {
     onSelectTab(tab);
-    // On small mobile viewports, collapse sidebar after navigating
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      setCollapsed(true);
-    }
+    clearCloseTimer();
+    setCollapsed(true);
   };
 
   const handleToggleCollapsed = () => {
-    setCollapsed(prev => !prev);
+    clearCloseTimer();
+    setCollapsed(prev => {
+      const next = !prev;
+      if (!next) {
+        lastExpandedAt.current = Date.now();
+      }
+      return next;
+    });
   };
 
-  // Close on mobile outside-click only (keep desktop sidebar stable and persistent)
+  const handleSidebarMouseEnter = () => {
+    clearCloseTimer();
+  };
+
+  const handleSidebarMouseLeave = () => {
+    if (collapsed) return;
+    // Don't auto-close during the initial 350ms opening transition
+    if (Date.now() - lastExpandedAt.current < 350) return;
+    clearCloseTimer();
+    closeTimerRef.current = setTimeout(() => {
+      setCollapsed(true);
+    }, 250);
+  };
+
+  // Close on mobile outside-click
   useEffect(() => {
     const handleDocumentPointerDown = (e: PointerEvent) => {
       if (collapsed) return;
       if (typeof window !== 'undefined' && window.innerWidth < 768) {
         if (sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
+          clearCloseTimer();
           setCollapsed(true);
         }
       }
@@ -49,8 +78,9 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     document.addEventListener('pointerdown', handleDocumentPointerDown);
     return () => {
       document.removeEventListener('pointerdown', handleDocumentPointerDown);
+      clearCloseTimer();
     };
-  }, [collapsed]);
+  }, [collapsed, clearCloseTimer]);
 
   return (
     <div className="h-screen max-h-screen bg-zinc-50/50 dark:bg-zinc-950/25 backdrop-blur-[1px] text-zinc-900 dark:text-zinc-100 flex flex-col font-sans transition-colors duration-200 overflow-hidden">
@@ -67,6 +97,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           onSelectTab={handleSelectTab}
           collapsed={collapsed}
           onToggleCollapsed={handleToggleCollapsed}
+          onMouseEnter={handleSidebarMouseEnter}
+          onMouseLeave={handleSidebarMouseLeave}
         />
 
         <main 
