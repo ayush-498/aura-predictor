@@ -1,5 +1,5 @@
 # A PROJECT REPORT
-**AURA PREDICTOR: ENTERPRISE HR SALARY HIKE & DECISION SUPPORT SYSTEM USING MACHINE LEARNING ENSEMBLES**
+**EMPLOYEE SALARY HIKE PREDICTOR: ENTERPRISE HR SALARY HIKE & DECISION SUPPORT SYSTEM USING MACHINE LEARNING ENSEMBLES**
 
 ---
 
@@ -10,7 +10,7 @@
 =================================================================================
                                 A PROJECT REPORT
                                        ON
-                 AURA PREDICTOR: ENTERPRISE HR SALARY HIKE &
+                 EMPLOYEE SALARY HIKE PREDICTOR: ENTERPRISE HR SALARY HIKE &
              DECISION SUPPORT SYSTEM USING MACHINE LEARNING ENSEMBLES
 
                                   Submitted by
@@ -35,7 +35,7 @@
 
 ## BONAFIDE CERTIFICATE
 
-Certified that this project report titled **“AURA PREDICTOR: ENTERPRISE HR SALARY HIKE & DECISION SUPPORT SYSTEM USING MACHINE LEARNING ENSEMBLES”** is the bonafide work of **AYUSH TIWARI (UID: 21BCS10403)**, who carried out the project work under my supervision at the Department of Computer Science & Engineering, Chandigarh University, Gharuan, Mohali.
+Certified that this project report titled **“EMPLOYEE SALARY HIKE PREDICTOR: ENTERPRISE HR SALARY HIKE & DECISION SUPPORT SYSTEM USING MACHINE LEARNING ENSEMBLES”** is the bonafide work of **AYUSH TIWARI (UID: 21BCS10403)**, who carried out the project work under my supervision at the Department of Computer Science & Engineering, Chandigarh University, Gharuan, Mohali.
 
 \
 \
@@ -161,7 +161,7 @@ __________________________________ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&em
 
 ## ABSTRACT
 
-In enterprise human resource management, annual performance appraisal cycles and salary increment decisions are traditionally hindered by subjective managerial biases, lack of standardized empirical baselines, and prolonged administrative delays. These inefficiencies often lead to compensation inequities, organizational disgruntlement, and acute employee attrition in high-demand technological sectors. This project presents **AURA Predictor**, a production-grade, enterprise-ready machine learning decision support platform engineered to forecast, benchmark, and audit employee salary increment percentages (`Percentage Salary Hike`). 
+In enterprise human resource management, annual performance appraisal cycles and salary increment decisions are traditionally hindered by subjective managerial biases, lack of standardized empirical baselines, and prolonged administrative delays. These inefficiencies often lead to compensation inequities, organizational disgruntlement, and acute employee attrition in high-demand technological sectors. This project presents **Employee Salary Hike Predictor**, a production-grade, enterprise-ready machine learning decision support platform engineered to forecast, benchmark, and audit employee salary increment percentages (`Percentage Salary Hike`). 
 
 Trained on a robust dataset comprising 22,770 verified enterprise records across diverse software engineering domains, the system implements a dual-model benchmarking architecture. A regularized **Gradient Boosting Regressor** ensemble serves as the non-linear production engine, operating alongside an **Ordinary Least Squares (OLS) Linear Regression** baseline to ensure predictive rigor, transparency, and statistical stability. The production model achieves a Root Mean Squared Error (RMSE) of 6.1440, a Mean Absolute Error (MAE) of 5.1281%, and an $R^2$ score of 0.2803 on a strict 20% held-out test split ($n=4,554$), outperforming baseline linear formulations across all operational metrics. Empirical feature importance analyses via Gini impurity reveal that Total Industry Experience (49.0%) and Current Base Salary (31.8%) constitute the dominant drivers of market-calibrated compensation adjustments, followed by Job Role domain (9.8%), Employment Status (5.6%), and Performance Rating (1.4%).
 
@@ -341,7 +341,7 @@ The project was executed across an intensive 16-week engineering schedule organi
 
 ```mermaid
 gantt
-    title AURA Predictor Engineering Timeline & Sprint Milestones
+    title Employee Salary Hike Predictor Engineering Timeline & Sprint Milestones
     dateFormat  YYYY-MM-DD
     section Phase 1: Requirements & Data
     Domain Need & Literature Review       :done,    p1, 2026-08-01, 2026-08-18
@@ -416,7 +416,7 @@ To rigorously assess the technological landscape, existing methodologies documen
 | **Bapna et al. (2019)** | Multivariable OLS Regression on HR Enterprise Data | Achieved $R^2 = 0.12$; validated statistical significance of ratings | High sensitivity to outliers; poor predictive fit ($RMSE > 8.5\%$); unable to handle categorical interaction terms. |
 | **Tambe et al. (2021)** | Black-Box Deep Neural Network (MLP) for Retention & Pay | High training classification accuracy ($88\%$); complex latent feature capture | Complete absence of explainability; violates EU AI Act auditability mandates; high compute overhead. |
 | **Wilson & Rosen (2022)** | Random Forest Decision Trees on Regional Tech Salaries | Reduced MAE to $6.2\%$; captured regional salary differences | Susceptible to tree overfitting on low-sample specialized roles; lacking dual-model baseline auditing. |
-| **AURA Predictor (This Work, 2026)** | Regularized Gradient Boosting Ensemble + OLS Baseline Dual Engine | $\text{RMSE} = 6.1440$, $\text{MAE} = 5.1281\%$, $R^2 = 0.2803$; sub-15ms REST API latency | Requires periodic retraining on updated annual market wage benchmarks. |
+| **Employee Salary Hike Predictor (This Work, 2026)** | Regularized Gradient Boosting Ensemble + OLS Baseline Dual Engine | $\text{RMSE} = 6.1440$, $\text{MAE} = 5.1281\%$, $R^2 = 0.2803$; sub-15ms REST API latency | Requires periodic retraining on updated annual market wage benchmarks. |
 
 ### 2.4 Review Summary
 
@@ -425,7 +425,7 @@ The critical synthesis of existing literature reveals three distinct technical g
 2. **Absence of Dual-Model Auditing:** Commercial systems rely on a single algorithm, depriving HR decision-makers of a comparative baseline to identify when non-linear ensembles are over-projecting increments relative to conservative linear trends.
 3. **Disconnection Between Batch Analytics and Interactive UI:** Existing academic models exist purely as disconnected scripts or notebooks without production-grade REST microservices or real-time simulation interfaces.
 
-**AURA Predictor** resolves these gaps by pairing a tuned, regularized Gradient Boosting Regressor (maximizing non-linear predictive power) with an OLS Linear Regression reference baseline in a unified, observable, and interactive enterprise decision platform.
+**Employee Salary Hike Predictor** resolves these gaps by pairing a tuned, regularized Gradient Boosting Regressor (maximizing non-linear predictive power) with an OLS Linear Regression reference baseline in a unified, observable, and interactive enterprise decision platform.
 
 ### 2.5 Problem Definition
 
@@ -469,7 +469,7 @@ To ensure enterprise-grade viability, the system architecture was engineered und
 
 *Table 3.1: Comprehensive Design Constraints & Regulatory Specifications Matrix.*
 
-| Dimension | Constraint Specification & Standard | Technical Mitigation in AURA Predictor |
+| Dimension | Constraint Specification & Standard | Technical Mitigation in Employee Salary Hike Predictor |
 | :--- | :--- | :--- |
 | **Standards & Protocols** | IEEE 802.11ax, IEEE 802.3, RFC 8259, ISO/IEC 25010 | Strict JSON payloads, stateless REST contracts, and standard HTTP response status codes ($200, 400, 500$). |
 | **Regulatory & Legal** | EU AI Act (2024), GDPR Article 22, US EEOC Guidelines | Elimination of all protected demographic data; deterministic explainability logs; mandatory human-in-the-loop execution. |
@@ -603,7 +603,7 @@ The technical execution of the project was carried out using contemporary indust
 
 ```text
 ======================================================================
-TEST EXECUTION SUMMARY: AURA PREDICTOR VALIDATION SUITE
+TEST EXECUTION SUMMARY: EMPLOYEE SALARY HIKE PREDICTOR VALIDATION SUITE
 ======================================================================
 test_01_all_models_loaded (TestMLModelArtifacts)                   ... PASS [0.012s]
 test_02_core_models_inference_and_bounds (TestMLModelArtifacts)     ... PASS [0.008s]
@@ -716,11 +716,11 @@ To validate compliance with enterprise throughput requirements, the system was s
 
 ### 5.1 Conclusion
 
-The **AURA Predictor** project successfully conceptualizes, engineers, and validates an enterprise-grade machine learning decision support platform for annual employee salary increments. By training regularized Gradient Boosting ensembles alongside Ordinary Least Squares linear baselines on 22,770 verified records, the system establishes a standardized, objective, and auditable alternative to legacy compensation practices.
+The **Employee Salary Hike Predictor** project successfully conceptualizes, engineers, and validates an enterprise-grade machine learning decision support platform for annual employee salary increments. By training regularized Gradient Boosting ensembles alongside Ordinary Least Squares linear baselines on 22,770 verified records, the system establishes a standardized, objective, and auditable alternative to legacy compensation practices.
 
 The production model achieves a Root Mean Squared Error of **6.1440**, a Mean Absolute Error of **5.1281%**, and explains **28.03% of market variance** ($R^2 = 0.2803$) on held-out test data, significantly outperforming linear formulations. Automated testing verifies complete compliance with mathematical invariants, input validation boundaries, and sub-15ms execution latency.
 
-The observed test $R^2$ of $0.2803$ reflects the reality of open compensation markets: in real-world technology ecosystems, discretionary corporate adjustments, off-cycle stock grants, and individual negotiations introduce irreducible noise that cannot be captured by resume metrics alone. By maintaining an explainable linear baseline alongside the ensemble, AURA Predictor provides HR leaders with an auditable decision corridor rather than an unverified black-box mandate.
+The observed test $R^2$ of $0.2803$ reflects the reality of open compensation markets: in real-world technology ecosystems, discretionary corporate adjustments, off-cycle stock grants, and individual negotiations introduce irreducible noise that cannot be captured by resume metrics alone. By maintaining an explainable linear baseline alongside the ensemble, Employee Salary Hike Predictor provides HR leaders with an auditable decision corridor rather than an unverified black-box mandate.
 
 ### 5.2 Future Work
 
@@ -761,7 +761,7 @@ The platform's technical roadmap encompasses four high-priority engineering exte
              CHANDIGARH UNIVERSITY — ACADEMIC INTEGRITY DIVISION
                        TURNITIN ORIGINALITY REPORT
 =================================================================================
-Document Title      : AURA Predictor: Enterprise HR Salary Hike & Decision Support 
+Document Title      : Employee Salary Hike Predictor: Enterprise HR Salary Hike & Decision Support 
                       System Using Machine Learning Ensembles
 Candidate Name      : Ayush Tiwari
 Student UID         : 21BCS10403
@@ -815,7 +815,7 @@ Head of Department, CSE                        Project Supervisor
 
 ### Appendix C: Complete System User Manual & Deployment Guide
 
-This user manual provides step-by-step instructions to configure, run, and interact with the **AURA Predictor** platform on a Windows or Linux workstation.
+This user manual provides step-by-step instructions to configure, run, and interact with the **Employee Salary Hike Predictor** platform on a Windows or Linux workstation.
 
 #### 1. Hardware & Software Prerequisites
 - **Operating System:** Windows 10/11 (64-bit) or Ubuntu Linux 20.04+
@@ -864,7 +864,7 @@ Execute the bundled batch launcher from the project root:
   ```powershell
   .\.venv\Scripts\python.exe backend\app.py
   ```
-  *Verifies: `Starting AURA Predictor Enterprise ML Backend on port 5050`.*
+  *Verifies: `Starting Employee Salary Hike Predictor Enterprise ML Backend on port 5050`.*
   *Health check: [http://localhost:5050/api/health](http://localhost:5050/api/health)*
 
 - **Terminal 2 (Frontend Client):**

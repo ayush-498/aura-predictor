@@ -41,7 +41,7 @@ const DILEMMA_VECTORS: DilemmaVector[] = [
       'Corrupted macro formulas, broken cell linkages, and missing row references',
       'Endless subjective calibration meetings draining 400+ manager hours',
     ],
-    fairTitle: 'AURA Algorithmic Velocity',
+    fairTitle: 'Predictor Algorithmic Velocity',
     fairPoints: [
       'High-throughput parallel inference across 5,000+ candidates in <10 seconds',
       'Unified single source of truth connected via secure bi-directional HRIS APIs',
@@ -128,7 +128,7 @@ export const CompensationDilemma: React.FC = () => {
           Spreadsheet Chaos vs. Algorithmic Fair-Pay
         </h2>
         <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-          Traditional compensation reviews rely on static spreadsheets, subjective manager bargaining, and hidden bias. AURA replaces manual friction with auditable algorithmic precision.
+          Traditional compensation reviews rely on static spreadsheets, subjective manager bargaining, and hidden bias. Employee Salary Hike Predictor replaces manual friction with auditable algorithmic precision.
         </p>
       </div>
 
@@ -217,7 +217,7 @@ export const CompensationDilemma: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Card: AURA Algorithmic Fairness (The Modern Way) */}
+        {/* Right Card: Predictor Algorithmic Fairness (The Modern Way) */}
         <div className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-emerald-500/10 via-white/50 to-teal-500/10 dark:from-emerald-950/30 dark:via-zinc-950/45 dark:to-teal-950/30 backdrop-blur-2xl border border-emerald-500/40 dark:border-emerald-500/30 shadow-xl flex flex-col justify-between">
           <div className="space-y-6">
             
@@ -228,7 +228,7 @@ export const CompensationDilemma: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                    AURA Engine
+                    Predictor Engine
                   </span>
                   <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
                     {selected.fairTitle}

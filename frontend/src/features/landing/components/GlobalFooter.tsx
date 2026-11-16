@@ -70,7 +70,7 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
               </div>
               <div>
                 <span className="text-lg font-extrabold tracking-tight text-zinc-900 dark:text-white">
-                  AURA Predictor
+                  Employee Salary Hike Predictor
                 </span>
                 <span className="ml-2 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                   ML Core
@@ -247,7 +247,7 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
         </div>
 
         <div>
-          <span>&copy; {new Date().getFullYear()} AURA Systems Inc. Audit Compliant. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} Employee Salary Hike Predictor Systems Inc. Audit Compliant. All rights reserved.</span>
         </div>
       </div>
 

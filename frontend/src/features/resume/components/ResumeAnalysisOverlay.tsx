@@ -69,7 +69,7 @@ export const ResumeAnalysisOverlay: React.FC<ResumeAnalysisOverlayProps> = ({
   const handleCopySummary = () => {
     const text = `
 ========================================
-AURA PREDICTOR - CANDIDATE APPRAISAL BRIEF
+EMPLOYEE SALARY HIKE PREDICTOR - CANDIDATE APPRAISAL BRIEF
 ========================================
 Candidate: ${extracted_profile.candidate_name}
 Document: ${filename}

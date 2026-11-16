@@ -107,7 +107,7 @@ Approved by: HR Compensation & Benefits Committee
         {/* Letter Preview Body */}
         <div className="my-6 p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 font-serif text-slate-800 dark:text-slate-200 text-sm leading-relaxed shadow-inner">
           <div className="border-b border-slate-300 dark:border-slate-700 pb-4 mb-4 flex justify-between items-center text-xs font-mono text-slate-500">
-            <span>MEMORANDUM ID: AURA-HR-{Math.floor(100000 + Math.random() * 900000)}</span>
+            <span>MEMORANDUM ID: ESHP-HR-{Math.floor(100000 + Math.random() * 900000)}</span>
             <span>Date: {letterDate}</span>
           </div>
 

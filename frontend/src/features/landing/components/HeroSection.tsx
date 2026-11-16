@@ -44,7 +44,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Version & Compliance Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-semibold backdrop-blur-sm animate-fadeIn">
               <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
-              <span>AURA 2.4 Enterprise Release</span>
+              <span>Employee Salary Hike Predictor v2.4</span>
               <span className="w-1 h-1 rounded-full bg-emerald-500/40"></span>
               <span className="font-mono text-[11px] font-bold">Audit-Ready Compliant</span>
             </div>
@@ -65,7 +65,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
-              AURA unites high-throughput Gradient Boosting ensembles, market percentile compression curves, and immutable audit telemetry to engineer mathematically sound, bias-audited appraisal cycles in hours—not months.
+              Employee Salary Hike Predictor unites high-throughput Gradient Boosting ensembles, market percentile compression curves, and immutable audit telemetry to engineer mathematically sound, bias-audited appraisal cycles in hours—not months.
             </p>
 
             {/* Action Buttons */}

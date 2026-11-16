@@ -17,7 +17,7 @@ DATA_DIR = os.path.join(BASE_DIR, 'data')
 
 def verify_all():
     print("=" * 65)
-    print("      AURA PREDICTOR — MODEL VALIDATION & VERIFICATION")
+    print("      EMPLOYEE SALARY HIKE PREDICTOR — MODEL VALIDATION & VERIFICATION")
     print("=" * 65)
 
     data_path = os.path.join(DATA_DIR, 'salary_data.csv')

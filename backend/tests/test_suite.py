@@ -1,5 +1,5 @@
 """
-AURA Predictor — Enterprise ML & Backend Test Suite
+Employee Salary Hike Predictor — Enterprise ML & Backend Test Suite
 Automated validation of ML models, API contracts, input boundaries, and financial arithmetic.
 """
 
@@ -202,7 +202,7 @@ class TestBackendAPI(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    print("Executing AURA Predictor Automated Validation Suite...\n")
+    print("Executing Employee Salary Hike Predictor Automated Validation Suite...\n")
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestMLModelArtifacts))
     suite.addTest(unittest.makeSuite(TestBackendAPI))

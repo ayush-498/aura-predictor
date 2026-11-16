@@ -243,7 +243,7 @@ export const RecentAppraisalsTable: React.FC<RecentAppraisalsTableProps> = ({
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'aura_appraisal_candidate_template.csv');
+    link.setAttribute('download', 'employee_salary_hike_candidate_template.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

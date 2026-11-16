@@ -172,7 +172,7 @@ def create_document():
     p_bon_body.paragraph_format.line_spacing = 1.5
     p_bon_body.paragraph_format.space_after = Pt(36)
     run = p_bon_body.add_run(
-        "Certified that this project report “AURA PREDICTOR: ENTERPRISE HR SALARY HIKE & "
+        "Certified that this project report “EMPLOYEE SALARY HIKE PREDICTOR: ENTERPRISE HR SALARY HIKE & "
         "DECISION SUPPORT SYSTEM USING MACHINE LEARNING ENSEMBLES” is the bonafide work of "
         "“AYUSH TIWARI (UID: 21BCS10403)” who carried out the project work under my/our supervision."
     )
@@ -430,7 +430,7 @@ def create_document():
         "determinations remain among the most critical yet inefficient organizational processes. Traditionally governed "
         "by subjective managerial discretion, legacy compensation spreadsheets, and rigid percentile grids, the appraisal "
         "process frequently introduces severe cognitive biases, compensation inequities, and acute employee attrition in "
-        "high-demand technical sectors. This project presents AURA Predictor, a production-grade, enterprise-ready machine "
+        "high-demand technical sectors. This project presents Employee Salary Hike Predictor, a production-grade, enterprise-ready machine "
         "learning decision support engine engineered to forecast, benchmark, and audit employee salary increment percentages "
         "(Percentage Salary Hike) with mathematical rigor."
     )
@@ -487,7 +487,7 @@ def create_document():
     p_ga_desc.paragraph_format.line_spacing = 1.5
     p_ga_desc.paragraph_format.space_after = Pt(14)
     p_ga_desc.add_run(
-        "The graphical abstract encapsulates the end-to-end operational topology of the AURA Predictor platform: "
+        "The graphical abstract encapsulates the end-to-end operational topology of the Employee Salary Hike Predictor platform: "
         "from raw dataset ingestion, feature scaling, dual-model machine learning benchmarking, through the high-throughput "
         "RESTful API gateway, and ending in the enterprise presentation dashboard with live auditing and telemetry."
     )
@@ -733,7 +733,7 @@ def create_document():
         "The contemporary relevance of this challenge is further reinforced by global regulatory frameworks, including the EU Pay "
         "Transparency Directive (2023) and US Equal Employment Opportunity Commission (EEOC) mandates. These statutory directives "
         "require corporations to demonstrate objective, non-discriminatory, and explainable criteria behind compensation adjustments. "
-        "AURA Predictor directly addresses this mandate by delivering an auditable, data-driven decision support framework."
+        "Employee Salary Hike Predictor directly addresses this mandate by delivering an auditable, data-driven decision support framework."
     )
 
     add_section_heading("1.2", "Identification of Problem")
@@ -873,7 +873,7 @@ def create_document():
         ("Bapna et al. (2019)", "Multivariable OLS Regression on IT HR Data", "Achieved R² = 0.12; validated rating significance", "High outlier sensitivity; poor predictive fit (RMSE > 8.5%); no interaction capture."),
         ("Tambe et al. (2021)", "Deep Neural Network (MLP) for Retention & Pay", "High classification accuracy (88%); latent features", "Black-box architecture; violates EU AI Act transparency rules; compute-heavy."),
         ("Wilson & Rosen (2022)", "Random Forest Decision Trees on Tech Salaries", "Reduced MAE to 6.2%; captured regional variance", "Overfitting on specialized low-sample roles; lacks dual baseline auditing."),
-        ("AURA Predictor (This Work, 2026)", "Regularized Gradient Boosting + OLS Dual Engine", "RMSE = 6.1440, MAE = 5.1281%, R² = 0.2803; <15ms latency", "Requires annual retraining on updated market wage benchmarks.")
+        ("Employee Salary Hike Predictor (This Work, 2026)", "Regularized Gradient Boosting + OLS Dual Engine", "RMSE = 6.1440, MAE = 5.1281%, R² = 0.2803; <15ms latency", "Requires annual retraining on updated market wage benchmarks.")
     ]
 
     for r_idx, (auth, meth, eff, draw) in enumerate(bib_rows):
@@ -902,7 +902,7 @@ def create_document():
         "wherein linear models offer interpretability at the expense of predictive capacity, while deep learning architectures offer "
         "capacity at the cost of explainability; (2) The Absence of Dual-Model Auditing, depriving practitioners of an objective linear "
         "baseline to verify when non-linear models deviate; and (3) The Disconnect between Batch Analytics and Operational Software, "
-        "where academic formulations remain confined to offline scripts. AURA Predictor resolves all three gaps by pairing a tuned "
+        "where academic formulations remain confined to offline scripts. Employee Salary Hike Predictor resolves all three gaps by pairing a tuned "
         "Gradient Boosting ensemble with an OLS baseline in a production-ready, interactive web platform."
     )
 
@@ -966,7 +966,7 @@ def create_document():
     set_table_borders(t_con)
     w_con = [Inches(1.8), Inches(2.2), Inches(2.8)]
 
-    for i, title in enumerate(["Dimension", "Constraint Specification & Standard", "Technical Mitigation in AURA Predictor"]):
+    for i, title in enumerate(["Dimension", "Constraint Specification & Standard", "Technical Mitigation in Employee Salary Hike Predictor"]):
         c = t_con.rows[0].cells[i]
         c.width = w_con[i]
         set_cell_background(c, "E2E8F0")
@@ -1307,7 +1307,7 @@ def create_document():
 
     add_section_heading("5.1", "Conclusion")
     add_body_p(
-        "The AURA Predictor project successfully conceptualizes, engineers, and validates an enterprise-grade machine learning decision support "
+        "The Employee Salary Hike Predictor project successfully conceptualizes, engineers, and validates an enterprise-grade machine learning decision support "
         "platform for annual employee salary increments. By training regularized Gradient Boosting ensembles alongside Ordinary Least Squares linear "
         "baselines on 22,770 verified records, the system establishes a standardized, objective, and auditable alternative to legacy compensation practices."
     )
@@ -1319,7 +1319,7 @@ def create_document():
     add_body_p(
         "The observed test R² of 0.2803 reflects the reality of open compensation markets: in real-world technology ecosystems, discretionary corporate "
         "adjustments, off-cycle stock grants, and individual negotiations introduce irreducible noise that cannot be captured by resume metrics alone. "
-        "By maintaining an explainable linear baseline alongside the ensemble, AURA Predictor provides HR leaders with an auditable decision corridor "
+        "By maintaining an explainable linear baseline alongside the ensemble, Employee Salary Hike Predictor provides HR leaders with an auditable decision corridor "
         "rather than an unverified black-box mandate."
     )
 
@@ -1390,7 +1390,7 @@ def create_document():
 
     add_section_heading("Appendix A", "Plagiarism Report & Academic Originality Verification")
     add_body_p(
-        "Document Title: AURA Predictor: Enterprise HR Salary Hike & Decision Support System Using Machine Learning Ensembles\n"
+        "Document Title: Employee Salary Hike Predictor: Enterprise HR Salary Hike & Decision Support System Using Machine Learning Ensembles\n"
         "Candidate Name: Ayush Tiwari (UID: 21BCS10403)\n"
         "Department: Computer Science & Engineering, Chandigarh University\n"
         "Screening Date: 21-October-2026\n"
@@ -1413,7 +1413,7 @@ def create_document():
 
     add_section_heading("Appendix C", "USER MANUAL")
     add_body_p(
-        "This user manual provides step-by-step instructions to configure, run, and interact with the AURA Predictor platform on a Windows or Linux workstation."
+        "This user manual provides step-by-step instructions to configure, run, and interact with the Employee Salary Hike Predictor platform on a Windows or Linux workstation."
     )
     add_body_p(
         "1. Prerequisites:\n"
@@ -1443,7 +1443,7 @@ def create_document():
         "Expected output: 'Ran 10 tests in 0.112s ... OK'."
     )
 
-    output_path = "AURA_Predictor_Project_Report.docx"
+    output_path = "Employee_Salary_Hike_Predictor_Project_Report.docx"
     doc.save(output_path)
     print(f"Report successfully saved to {output_path}")
 

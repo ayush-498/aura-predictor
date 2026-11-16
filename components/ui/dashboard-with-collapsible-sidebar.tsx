@@ -362,7 +362,7 @@ export const Example: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
-                    AURA Model Version 2.4.1 Production Checkpoint
+                    Employee Salary Hike Predictor Model v2.4.1 Production Checkpoint
                   </h3>
                   <p className="text-xs text-slate-500 font-mono">SHA256: 8f9b4a1c098e7d23</p>
                 </div>
@@ -587,7 +587,7 @@ const TitleSection: React.FC<TitleSectionProps> = ({ open, onOpenModal }) => {
             <div className={`transition-opacity duration-200 ${open ? 'opacity-100' : 'opacity-0'}`}>
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
-                  AURA Predictor
+                  Employee Salary Hike Predictor
                 </span>
                 <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400">
                   ML Core

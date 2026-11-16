@@ -108,7 +108,7 @@ interface AppraisalLedgerContextType {
   resetToBaseline: () => void;
 }
 
-const STORAGE_KEY = 'aura_appraisal_ledger_v2';
+const STORAGE_KEY = 'employee_salary_hike_ledger_v2';
 
 const AppraisalLedgerContext = createContext<AppraisalLedgerContextType | undefined>(undefined);
 
@@ -116,7 +116,7 @@ export const AppraisalLedgerProvider: React.FC<{ children: React.ReactNode }> = 
   const [ledger, setLedger] = useState<EmployeeProfile[]>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem(STORAGE_KEY);
+        const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('aura_appraisal_ledger_v2');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;

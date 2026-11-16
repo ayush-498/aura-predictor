@@ -288,7 +288,7 @@ Status: Confirmed & Digitally Authenticated
 
             <div className="p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-950 font-serif text-zinc-800 dark:text-zinc-200 text-xs leading-relaxed space-y-3">
               <div className="flex justify-between font-mono text-[10px] text-zinc-400 border-b border-zinc-200 dark:border-zinc-800 pb-2">
-                <span>MEMO REF: AURA-{Math.floor(100000 + Math.random() * 900000)}</span>
+                <span>MEMO REF: ESHP-{Math.floor(100000 + Math.random() * 900000)}</span>
                 <span>Date: {letterDate}</span>
               </div>
               <p className="font-sans font-bold text-sm text-zinc-900 dark:text-zinc-100">

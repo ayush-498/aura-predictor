@@ -42,8 +42,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   };
 
   const handleQuickDemoFill = () => {
-    setEmail('lead.analyst@aura.enterprise');
-    setPassword('AuraSecure2026!');
+    setEmail('lead.analyst@salaryhike.enterprise');
+    setPassword('SalaryHikeSecure2026!');
     setErrorMessage(null);
   };
 
@@ -65,7 +65,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
         <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/60 border border-cyan-500/20 backdrop-blur-md text-xs text-cyan-300">
           <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          <span>AURA Engine v2.4</span>
+          <span>Employee Salary Hike Engine v2.4</span>
         </div>
       </header>
 
@@ -115,7 +115,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="analyst@aura.enterprise"
+                    placeholder="analyst@salaryhike.enterprise"
                     autoComplete="username"
                     autoFocus
                     required
@@ -224,7 +224,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
       {/* Subtle Footer */}
       <footer className="relative z-10 py-4 text-center text-xs text-zinc-600">
-        © {new Date().getFullYear()} AURA Platform. All rights reserved.
+        © {new Date().getFullYear()} Employee Salary Hike Predictor. All rights reserved.
       </footer>
     </div>
   );

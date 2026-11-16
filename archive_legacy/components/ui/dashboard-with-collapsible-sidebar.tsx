@@ -286,7 +286,7 @@ const TitleSection: React.FC<TitleSectionProps> = ({ open }) => {
             <div className={`transition-opacity duration-200 ${open ? 'opacity-100' : 'opacity-0'}`}>
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
-                  AURA Predictor
+                  Employee Salary Hike Predictor
                 </span>
                 <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400">
                   ML Core

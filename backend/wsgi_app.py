@@ -1,5 +1,5 @@
 """
-AURA Predictor — Flask/Gunicorn production wrapper.
+Employee Salary Hike Predictor — Flask/Gunicorn production wrapper.
 Wraps the existing MLAPIHandler logic for deployment on Render/Railway.
 """
 import os
@@ -39,7 +39,7 @@ def health():
     all_ready = all(models_status.values())
     return jsonify({
         'status': 'healthy',
-        'service': 'AURA Predictor API',
+        'service': 'Employee Salary Hike Predictor API',
         'ready': num_loaded > 0,
         'all_models_ready': all_ready,
         'models_loaded': num_loaded,
@@ -145,7 +145,7 @@ def upload_resume():
 
 @app.route('/', methods=['GET'])
 def root():
-    return jsonify({'service': 'AURA Predictor ML API', 'status': 'running', 'version': '1.0.0'})
+    return jsonify({'service': 'Employee Salary Hike Predictor ML API', 'status': 'running', 'version': '1.0.0'})
 
 
 if __name__ == '__main__':

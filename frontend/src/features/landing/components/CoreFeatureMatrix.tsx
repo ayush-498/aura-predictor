@@ -150,7 +150,7 @@ export const CoreFeatureMatrix: React.FC<CoreFeatureMatrixProps> = ({ onOpenApp 
           The Four Pillars of Precision Comp
         </h2>
         <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-          Each pillar corresponds directly to an active production module in the AURA platform, purpose-built for enterprise scale and mathematical accountability.
+          Each pillar corresponds directly to an active production module in the Employee Salary Hike Predictor platform, purpose-built for enterprise scale and mathematical accountability.
         </p>
       </div>
 

@@ -112,7 +112,7 @@ export const WorkflowSection: React.FC<WorkflowSectionProps> = ({ onOpenApp }) =
           The 3-Step Production Pipeline
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-          How AURA Works: Ingest → Infer → Audit
+          How Employee Salary Hike Predictor Works: Ingest → Infer → Audit
         </h2>
         <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
           From raw HRIS rosters to cryptographically sealed payroll disbursement in 48 hours. Here is the architectural flow powering modern enterprise compensation.

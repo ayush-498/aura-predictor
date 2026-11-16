@@ -152,7 +152,7 @@ class AppRequestHandler(SimpleHTTPRequestHandler):
 if __name__ == '__main__':
     os.makedirs(STATIC_DIR, exist_ok=True)
     server = HTTPServer(('127.0.0.1', PORT), AppRequestHandler)
-    print(f">> AURA Neural Compensation Intelligence running at: http://127.0.0.1:{PORT}")
+    print(f">> Employee Salary Hike Predictor Neural Intelligence running at: http://127.0.0.1:{PORT}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

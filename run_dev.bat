@@ -1,10 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
-title AURA Predictor - Enterprise ML Launcher
+title Employee Salary Hike Predictor - Enterprise ML Launcher
 cd /d "%~dp0"
 
 echo ========================================================
-echo   AURA Predictor -- Enterprise HR Salary Decision Engine
+echo   Employee Salary Hike Predictor -- HR Decision Engine
 echo ========================================================
 echo.
 
@@ -34,14 +34,14 @@ if not exist "frontend\node_modules" (
 
 :: 3. Start Backend Microservice on Port 5050
 echo [1/2] Starting Production ML Backend on http://localhost:5050...
-start "AURA Predictor - ML Backend (Port 5050)" cmd /k "title ML Backend (:5050) && "%PYTHON_EXE%" -u backend\app.py"
+start "Employee Salary Hike Predictor - ML Backend (Port 5050)" cmd /k "title ML Backend (:5050) && "%PYTHON_EXE%" -u backend\app.py"
 
 :: Allow backend 2 seconds to bind port
 timeout /t 2 /nobreak > nul
 
 :: 4. Start Vite Frontend on Port 3000
 echo [2/2] Starting Modern Enterprise Frontend on http://localhost:3000...
-start "AURA Predictor - Vite Frontend (Port 3000)" cmd /k "title Vite Frontend (:3000) && cd /d "%~dp0frontend" && npm.cmd run dev"
+start "Employee Salary Hike Predictor - Vite Frontend (Port 3000)" cmd /k "title Vite Frontend (:3000) && cd /d "%~dp0frontend" && npm.cmd run dev"
 
 :: Allow Vite 3 seconds to spin up, then open browser
 timeout /t 3 /nobreak > nul

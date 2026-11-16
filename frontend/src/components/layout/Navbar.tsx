@@ -37,14 +37,14 @@ export const Navbar: React.FC<NavbarProps> = ({ isBackendOnline, onRefreshHealth
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-base font-bold tracking-tight text-zinc-900 dark:text-zinc-50 group-hover:text-zinc-300 transition-colors">
-                AURA Predictor
+                Employee Salary Hike Predictor
               </h1>
               <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-bold border border-zinc-200 dark:border-zinc-700/60">
                 ML Core
               </span>
             </div>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 hidden sm:block">
-              Employee Salary Hike Predictor & Decision Support
+              Enterprise HR Compensation & Decision Support
             </p>
           </div>
         </div>
@@ -231,7 +231,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isBackendOnline, onRefreshHealth
           <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800 mb-4">
               <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-emerald-500" /> AURA Salary Hike Model v2.4.1
+                <Sparkles className="w-4 h-4 text-emerald-500" /> Employee Salary Hike Model v2.4.1
               </h3>
               <button onClick={() => setIsVersionModalOpen(false)} className="text-zinc-400 hover:text-zinc-600">
                 <X className="w-4 h-4" />

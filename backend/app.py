@@ -61,7 +61,7 @@ for item in INITIAL_SEED_LOGS:
     telemetry_ring_buffer.append(item)
 
 print("=" * 60)
-print(f"Starting AURA Predictor Enterprise ML Backend on port {PORT}")
+print(f"Starting Employee Salary Hike Predictor Enterprise ML Backend on port {PORT}")
 print(f"Models Directory: {MODELS_DIR}")
 print(f"Data Directory:   {DATA_DIR}")
 print("=" * 60)
@@ -130,7 +130,7 @@ class MLAPIHandler(BaseHTTPRequestHandler):
             num_loaded = sum(1 for v in models_status.values() if v)
             return self._send_json(200, {
                 'status': 'healthy',
-                'service': 'AURA Predictor API',
+                'service': 'Employee Salary Hike Predictor API',
                 'ready': num_loaded > 0,
                 'all_models_ready': all(models_status.values()),
                 'models_loaded': num_loaded,
@@ -187,11 +187,16 @@ class MLAPIHandler(BaseHTTPRequestHandler):
                 'total_tracked': len(telemetry_ring_buffer)
             })
 
-        if path in ('/api/download-report', '/download', '/report.docx', '/AURA_Predictor_Project_Report.docx'):
+        if path in ('/api/download-report', '/download', '/report.docx', '/Employee_Salary_Hike_Predictor_Project_Report.docx', '/AURA_Predictor_Project_Report.docx'):
             report_candidates = [
+                os.path.join(BASE_DIR, '..', 'Employee_Salary_Hike_Predictor_Project_Report.docx'),
+                os.path.join(BASE_DIR, 'Employee_Salary_Hike_Predictor_Project_Report.docx'),
+                os.path.join(os.getcwd(), 'Employee_Salary_Hike_Predictor_Project_Report.docx'),
+                os.path.join(BASE_DIR, '..', 'frontend', 'public', 'Employee_Salary_Hike_Predictor_Project_Report.docx'),
                 os.path.join(BASE_DIR, '..', 'AURA_Predictor_Project_Report.docx'),
                 os.path.join(BASE_DIR, 'AURA_Predictor_Project_Report.docx'),
-                os.path.join(os.getcwd(), 'AURA_Predictor_Project_Report.docx')
+                os.path.join(os.getcwd(), 'AURA_Predictor_Project_Report.docx'),
+                os.path.join(BASE_DIR, '..', 'frontend', 'public', 'AURA_Predictor_Project_Report.docx'),
             ]
             report_file = next((f for f in report_candidates if os.path.exists(f)), None)
             if report_file:
@@ -201,7 +206,7 @@ class MLAPIHandler(BaseHTTPRequestHandler):
                     self.send_response(200)
                     self._send_cors_headers()
                     self.send_header('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                    self.send_header('Content-Disposition', 'attachment; filename="AURA_Predictor_Project_Report.docx"')
+                    self.send_header('Content-Disposition', 'attachment; filename="Employee_Salary_Hike_Predictor_Project_Report.docx"')
                     self.send_header('Content-Length', str(len(file_bytes)))
                     self.end_headers()
                     self.wfile.write(file_bytes)

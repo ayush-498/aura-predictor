@@ -25,7 +25,7 @@ export const MLEngineDeepDive: React.FC<MLEngineDeepDiveProps> = ({ onOpenApp })
     full: [
       {
         model: 'Gradient Boosting Regressor',
-        tag: 'AURA Primary',
+        tag: 'Ensemble Primary',
         isWinner: true,
         r2: 0.949,
         rmse: 1.88,
@@ -47,7 +47,7 @@ export const MLEngineDeepDive: React.FC<MLEngineDeepDiveProps> = ({ onOpenApp })
     core: [
       {
         model: 'Gradient Boosting Regressor',
-        tag: 'AURA Core',
+        tag: 'Ensemble Core',
         isWinner: true,
         r2: 0.941,
         rmse: 1.94,
@@ -110,7 +110,7 @@ export const MLEngineDeepDive: React.FC<MLEngineDeepDiveProps> = ({ onOpenApp })
           Dual-Model Benchmarking & SHAP Explainability
         </h2>
         <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-          Trained on 22,770 rigorously validated records. AURA rigorously compares Gradient Boosting against Ordinary Least Squares baselines to guarantee sub-15ms inference with mathematical Shapley attribution.
+          Trained on 22,770 rigorously validated records. Employee Salary Hike Predictor rigorously compares Gradient Boosting against Ordinary Least Squares baselines to guarantee sub-15ms inference with mathematical Shapley attribution.
         </p>
       </div>
 
